@@ -6,6 +6,7 @@ public class PlayerTankController : GenericSingleton<PlayerTankController>
 {
        
     [SerializeField] float speed;
+    [SerializeField] float rotationSpeed;
      
     [SerializeField] Joystick joystick;
 
@@ -23,32 +24,49 @@ public class PlayerTankController : GenericSingleton<PlayerTankController>
 
     void Update()
     {
-       xAxis =joystick.Horizontal * speed;
-       zAxis = joystick.Vertical  * speed;
+       // For X axis
+       if(joystick.Horizontal >=  0.2f)
+       {
+           xAxis = speed;
+       }
+       else if(joystick.Horizontal <= -0.2f)
+       {
+           xAxis = -speed;
+       }       
+       else
+       {
+           xAxis = 0f;
+       }
+ 
+       // For Z axis
+       if(joystick.Vertical >=  0.2f)
+       {
+           zAxis = speed;
+       }
+       else if(joystick.Vertical <= -0.2f)
+       {
+           zAxis = -speed;
+       }       
+       else
+       {
+           zAxis = 0f;
+       }
 
-       HandleRotation();
+        HandleRotation();
     
     }
    
     void HandleRotation()
     {
-        if(zAxis > 0)
-       {
-          transform.Rotate(0 , 0 , 0);
-       }
-        if(zAxis < 0)
-       {
-          transform.Rotate(0 , -180 , 0);
-       }
-       if(xAxis > 0)
-       {
-          transform.Rotate(0 , -90 , 0);
-       }
-         if(xAxis > 0)
-       {
-          transform.Rotate(0 , 90 , 0);
-       }
+        Vector3 moveDirection = new Vector3(joystick.Horizontal,0,joystick.Vertical);
+        moveDirection.Normalize();
 
+        if(moveDirection != Vector3.zero)
+        {
+         Quaternion toRotate = Quaternion.LookRotation(moveDirection,Vector3.up);
+         transform.rotation = Quaternion.RotateTowards(transform.rotation,toRotate,rotationSpeed * Time.deltaTime );
+        }
+     
     }
 
     void FixedUpdate()
