@@ -1,37 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
-public class PlayerTankController : GenericSingleton<PlayerTankController>
+public class TankView : MonoBehaviour
 {
-       
-    [SerializeField] float speed;
-    [SerializeField] float rotationSpeed;
-     
-    [SerializeField] Joystick joystick;
+    public Rigidbody rb; 
 
-    [SerializeField] Rigidbody rb; 
+    public Joystick joystick;
 
-    float xAxis;
-    float zAxis;
+    float xAxis,zAxis;
 
+    [HideInInspector] public float tankSpeed;
 
-	protected override void Awake()
-	{
-		base.Awake();
-	}
+    [HideInInspector] public float rotationSpeed;
 
-
-    void Update()
+    void Awake()
     {
-       // For X axis
+        GameObject temp = GameObject.Find("Canvas/Fixed Joystick");
+        joystick = temp.GetComponent<Joystick>();
+    }
+
+
+    public void tankInputs()
+    {
+        // For X axis
        if(joystick.Horizontal >=  0.2f)
        {
-           xAxis = speed;
+           xAxis = tankSpeed;
        }
        else if(joystick.Horizontal <= -0.2f)
        {
-           xAxis = -speed;
+           xAxis = -(tankSpeed);
        }       
        else
        {
@@ -41,40 +41,42 @@ public class PlayerTankController : GenericSingleton<PlayerTankController>
        // For Z axis
        if(joystick.Vertical >=  0.2f)
        {
-           zAxis = speed;
+           zAxis = tankSpeed;
        }
        else if(joystick.Vertical <= -0.2f)
        {
-           zAxis = -speed;
+           zAxis = -(tankSpeed);
        }       
        else
        {
            zAxis = 0f;
        }
 
-        HandleRotation();
-    
     }
-   
-    void HandleRotation()
+
+    public void handleTankRotation()
     {
         Vector3 moveDirection = new Vector3(joystick.Horizontal,0,joystick.Vertical);
         moveDirection.Normalize();
-
+        // Transform tankTrns = TankV.tankTransform;
+        
         if(moveDirection != Vector3.zero)
         {
          Quaternion toRotate = Quaternion.LookRotation(moveDirection,Vector3.up);
          transform.rotation = Quaternion.RotateTowards(transform.rotation,toRotate,rotationSpeed * Time.deltaTime );
         }
-     
+    }
+
+    void Update()
+    {
+        tankInputs();      
+ 
+        handleTankRotation();
     }
 
     void FixedUpdate()
     {
-      rb.velocity = new Vector3(xAxis , 0 , zAxis);
+       rb.velocity = new Vector3(xAxis, 0 ,zAxis);
     }
-
-    
-
 
 }
