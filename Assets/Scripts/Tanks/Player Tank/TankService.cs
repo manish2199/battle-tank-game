@@ -10,8 +10,11 @@ public class TankService : GenericSingleton<TankService>
 
     PlayerTankController tankController;
 
-    public Transform tankPosition;
-    
+    [SerializeField]  Transform tankInstantiatePosition;
+
+    [HideInInspector] public Transform tankTransform;
+
+
     protected override void Awake()
 	{
 		base.Awake();
@@ -20,7 +23,9 @@ public class TankService : GenericSingleton<TankService>
     void Start()
     {
        tankModel = new TankModel(6f,250f);
-       tankController = new PlayerTankController(tankModel, tankPrefab , tankPosition);
+       tankController = new PlayerTankController(tankModel, tankPrefab , tankInstantiatePosition);
+       tankTransform = tankController.TankV.TankTransform;
     }
+
 
 }

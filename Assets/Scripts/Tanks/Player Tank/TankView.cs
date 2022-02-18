@@ -5,19 +5,21 @@ using UnityEngine;
 
 public class TankView : MonoBehaviour
 {
-    public Rigidbody rb; 
+    [SerializeField] private Rigidbody rb; 
+    
+    private Joystick movementJoystick;
+    private Joystick rotationJoystick;
 
-    public Joystick movementJoystick;
-    public Joystick rotationJoystick;
+    private float xAxis,zAxis;
 
-    float xAxis,zAxis;
+    private float tankSpeed;
+    public float TankSpeed { set{ tankSpeed = value;}}
 
-    bool notMoving = false;
+    private float rotationSpeed;
+    public float RotationSpeed { set{ rotationSpeed = value;}}
 
-    [HideInInspector] public float tankSpeed;
-
-    [HideInInspector] public float rotationSpeed;
-
+   [SerializeField]private Transform tankTransform ;
+    public Transform TankTransform   { get { return tankTransform;} }  
 
     void Awake()
     {
@@ -35,43 +37,27 @@ public class TankView : MonoBehaviour
         handleTankRotation(); 
     }
 
+
     public void tankMovement()
     {
         // For Z axis
        if(movementJoystick.Vertical >=  0.2f)
        {
            transform.position += transform.forward * Time.deltaTime * tankSpeed;
-           notMoving = false;
        }
        else if(movementJoystick.Vertical <= -0.2f)
        {
-            transform.position -= transform.forward * Time.deltaTime * tankSpeed; 
-           notMoving = false;
+           transform.position -= transform.forward * Time.deltaTime * tankSpeed; 
        }       
        else
-       {
-           notMoving = true;
-       }
+       {}
     }
 
     public void handleTankRotation()
     {
         xAxis = rotationJoystick.Horizontal;
        
-        if(notMoving)
-        {
-           transform.Rotate(0, xAxis * rotationSpeed * Time.deltaTime , 0);
-        }
-
-        // Vector3 moveDirection = new Vector3(joystick.Horizontal,0,joystick.Vertical);
-        // moveDirection.Normalize();
-        // // Transform tankTrns = TankV.tankTransform;
-        
-        // if(moveDirection != Vector3.zero)
-        // {
-        //  Quaternion toRotate = Quaternion.LookRotation(moveDirection,Vector3.up);
-        //  transform.rotation = Quaternion.RotateTowards(transform.rotation,toRotate,rotationSpeed * Time.deltaTime );
-        // }
+        transform.Rotate(0, xAxis * rotationSpeed * Time.deltaTime , 0);
     }
 
    

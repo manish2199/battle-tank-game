@@ -14,8 +14,8 @@ public class PlayerTankController
          
        TankV = GameObject.Instantiate<TankView>(tankPrefab,pos);
 
-       TankV.tankSpeed = TankM.Speed;
+       TankV.TankSpeed = TankM.Speed;
        
-       TankV.rotationSpeed = TankM.RotationSpeed;
+       TankV.RotationSpeed = TankM.RotationSpeed;
     }
 }
