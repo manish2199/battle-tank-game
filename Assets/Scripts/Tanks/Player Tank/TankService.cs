@@ -19,8 +19,8 @@ public class TankService : GenericSingleton<TankService>
 
     void Start()
     {
-       tankModel = new TankModel(6f,350f);
-       tankController = new PlayerTankController(tankModel,tankPrefab , tankPosition);
+       tankModel = new TankModel(6f,250f);
+       tankController = new PlayerTankController(tankModel, tankPrefab , tankPosition);
     }
 
 }

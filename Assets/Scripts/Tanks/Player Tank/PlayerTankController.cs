@@ -10,13 +10,12 @@ public class PlayerTankController
     
     public PlayerTankController(TankModel tankModel , TankView tankPrefab ,Transform pos)
     {
-        TankM = tankModel;
+       TankM = tankModel;
          
-        TankV = GameObject.Instantiate<TankView>(tankPrefab,pos);
+       TankV = GameObject.Instantiate<TankView>(tankPrefab,pos);
 
        TankV.tankSpeed = TankM.Speed;
+       
        TankV.rotationSpeed = TankM.RotationSpeed;
     }
-
-  
 }

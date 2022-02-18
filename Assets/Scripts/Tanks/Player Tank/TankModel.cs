@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TankModel 
 {
-   public TankModel(float speed , float rotationSpeed)
+   public TankModel(float speed , float rotationSpeed )
     {
        Speed = speed;
        RotationSpeed = rotationSpeed;
