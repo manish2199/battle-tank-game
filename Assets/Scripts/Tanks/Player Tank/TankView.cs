@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class TankView : MonoBehaviour
 {
+    // public GameObject tankRenderer; 
+
+    public TankType tankType;
+
     [SerializeField] private Rigidbody rb; 
     
     private Joystick movementJoystick;
@@ -18,11 +22,12 @@ public class TankView : MonoBehaviour
     private float rotationSpeed;
     public float RotationSpeed { set{ rotationSpeed = value;}}
 
-   [SerializeField]private Transform tankTransform ;
+    [SerializeField] private Transform tankTransform;
     public Transform TankTransform   { get { return tankTransform;} }  
 
     void Awake()
     {
+        // tankTransform = tankRenderer.transform;
         GameObject temp = GameObject.Find("Canvas/Fixed Joystick");
         movementJoystick = temp.GetComponent<Joystick>();
     
@@ -30,7 +35,13 @@ public class TankView : MonoBehaviour
         rotationJoystick = temp1.GetComponent<Joystick>();
     }
 
-     void Update()
+    void Start()
+    {
+        print(tankType + " has been created " );
+    }
+
+
+    void Update()
     {
         tankMovement();      
  

@@ -4,13 +4,29 @@ using UnityEngine;
 
 public class TankModel 
 {
-   public TankModel(float speed , float rotationSpeed )
-    {
-       Speed = speed;
-       RotationSpeed = rotationSpeed;
-    }
+   public TankModel(TankScriptableObject tank)
+   {
+      Speed =tank.Speed ;
+      tankType = tank.tankType;
+      Damage = tank.Damage ;
+      Health = tank.Health;
+      RotationSpeed = tank.RotationSpeed;
+   }
 
-    public float Speed { get; }
+   // public TankModel(float speed , float rotationSpeed )
+   // {
+   //    Speed = speed;
+   //    RotationSpeed = rotationSpeed;
+   // }
 
-    public float RotationSpeed { get; }
+   public TankType tankType { get; }
+
+   public float Speed { get; }
+
+   public float RotationSpeed { get; }
+ 
+   public float Damage { get; }   
+
+   public float Health { get; }   
+
 }

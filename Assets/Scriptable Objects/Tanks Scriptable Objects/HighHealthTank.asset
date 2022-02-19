@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b944826b5b94dc0428cf3ca25801ae79, type: 3}
+  m_Name: HighHealthTank
+  m_EditorClassIdentifier: 
+  tankType: 1
+  tankPrefab: {fileID: 8853648623558411368, guid: da9e4a293bde7f640b700a02a38407ce,
+    type: 3}
+  Health: 150
+  Speed: 6
+  Damage: 10

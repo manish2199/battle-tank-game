@@ -28,7 +28,7 @@ public class CameraMovement : MonoBehaviour
    void cameraMovement()
    {
         float xAxis = Mathf.Lerp(transform.position.x,tankService.tankTransform.position.x,lerRate);
-        float zAxis = Mathf.Lerp(transform.position.z,tankService.tankTransform.position.z,lerRate);
+        float zAxis = Mathf.Lerp(transform.position.z,tankService .tankTransform.position.z,lerRate);
 
         transform.position = new Vector3(xAxis - OffsetX,transform.position.y, zAxis - OffsetZ );
    }
