@@ -8,6 +8,10 @@ public class TankService : GenericSingleton<TankService>
     [SerializeField] TankScriptableObjectList tankScriptableObjectList;
     
     [SerializeField]  Transform tankInstantiatePosition;
+
+    [SerializeField] Joystick movementJoystick;
+
+    [SerializeField] Joystick rotationJoystick;
     
     TankModel tankModel; 
     
@@ -33,8 +37,8 @@ public class TankService : GenericSingleton<TankService>
        TankScriptableObject tank = getRandomTank();
         
        tankModel = new TankModel(tank);
-       tankController = new PlayerTankController(tankModel,tank.tankPrefab, tankInstantiatePosition);
-       tankTransform = tankController.TankV.TankTransform;
+       tankController = new PlayerTankController(tankModel,tank.tankPrefab,movementJoystick,rotationJoystick,tankInstantiatePosition);
+       tankTransform = tankController.tankViewScript.TankTransform;
 
     }
 

@@ -450,9 +450,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24382fa6bdbf77d4f9320809a223bc2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tankScriptableObjectList: {fileID: 0}
-  tankPrefab: {fileID: 8853648623558411368, guid: da9e4a293bde7f640b700a02a38407ce,
-    type: 3}
+  tankScriptableObjectList: {fileID: 11400000, guid: 00b0d39db072b034aa44e7af60fbf932,
+    type: 2}
   tankInstantiatePosition: {fileID: 801338377}
   tankTransform: {fileID: 0}
 --- !u!224 &1228461991 stripped

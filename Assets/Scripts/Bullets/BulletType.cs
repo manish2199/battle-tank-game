@@ -5,7 +5,7 @@ public enum BulletType
 {
     None,
     RedBullet,
-    GreenBullet,
+    BlueBullet,
     YellowBullet
 };
 

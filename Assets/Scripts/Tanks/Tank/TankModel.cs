@@ -8,16 +8,12 @@ public class TankModel
    {
       Speed =tank.Speed ;
       tankType = tank.tankType;
-      Damage = tank.Damage ;
       Health = tank.Health;
       RotationSpeed = tank.RotationSpeed;
+      tank.bulletType = bulletScriptableObject ;
    }
 
-   // public TankModel(float speed , float rotationSpeed )
-   // {
-   //    Speed = speed;
-   //    RotationSpeed = rotationSpeed;
-   // }
+   public  BulletScriptableObject bulletScriptableObject { get; }
 
    public TankType tankType { get; }
 
@@ -25,8 +21,6 @@ public class TankModel
 
    public float RotationSpeed { get; }
  
-   public float Damage { get; }   
-
    public float Health { get; }   
 
 }

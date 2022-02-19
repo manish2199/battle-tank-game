@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu (fileName = "TankScriptableObjet", menuName = " ScriptableObject/NewTankScriptableObject")]
+[CreateAssetMenu (fileName = "TankScriptableObject", menuName = "ScriptableObject/NewTankScriptableObject")]
 public class TankScriptableObject : ScriptableObject 
 {
    public TankType tankType;
@@ -9,7 +9,7 @@ public class TankScriptableObject : ScriptableObject
    public float Health;
    public float RotationSpeed;
    public float Speed;
-   public float Damage;
+   public BulletScriptableObject bulletType; 
 }
 
 

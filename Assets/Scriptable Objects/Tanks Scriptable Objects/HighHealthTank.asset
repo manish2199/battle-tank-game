@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: HighHealthTank
   m_EditorClassIdentifier: 
   tankType: 1
-  tankPrefab: {fileID: 8853648623558411368, guid: da9e4a293bde7f640b700a02a38407ce,
+  tankPrefab: {fileID: 4339581626009545667, guid: da9e4a293bde7f640b700a02a38407ce,
     type: 3}
   Health: 150
+  RotationSpeed: 250
   Speed: 6
-  Damage: 10
+  bulletType: {fileID: 11400000, guid: 90ed1508a01db6141bfb228c7eaad0fc, type: 2}
