@@ -409,9 +409,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f440e68171a82d418c26454b4788c68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tankType: 2
-  rb: {fileID: 1043595605330145703}
   tankTransform: {fileID: 682240826308766149}
+  bulletFireTransform: {fileID: 6322720263984689558}
 --- !u!54 &1043595605330145703
 Rigidbody:
   m_ObjectHideFlags: 0

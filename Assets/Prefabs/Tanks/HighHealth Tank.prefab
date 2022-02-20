@@ -162,9 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f440e68171a82d418c26454b4788c68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tankType: 1
-  rb: {fileID: 7874658515671253495}
   tankTransform: {fileID: 1804311739018425286}
+  bulletFireTransform: {fileID: 3704307426069181000}
 --- !u!65 &9047253082052430922
 BoxCollider:
   m_ObjectHideFlags: 0

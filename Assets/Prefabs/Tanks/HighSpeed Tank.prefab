@@ -79,9 +79,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f440e68171a82d418c26454b4788c68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tankType: 3
-  rb: {fileID: 4782473844482546207}
   tankTransform: {fileID: 5272373036756584791}
+  bulletFireTransform: {fileID: 1056623708927732744}
 --- !u!1 &2743446158681700357
 GameObject:
   m_ObjectHideFlags: 0

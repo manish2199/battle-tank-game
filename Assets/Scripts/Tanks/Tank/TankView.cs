@@ -3,17 +3,26 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
+
 public class TankView : MonoBehaviour
 {
-    public PlayerTankController playerController;
+    
+    public TankController playerController;
 
+    
     [SerializeField] private Transform tankTransform;
     public Transform TankTransform   { get { return tankTransform;} }  
+
+
+    [SerializeField] private Transform bulletFireTransform;
+    public Transform BulletFireTransform { get { return bulletFireTransform;} } 
 
 
     void Start()
     {
         print(playerController.tankModelScript.tankType + " has been created " );
+
+        setFireButtonFunction();
     }
 
 
@@ -22,6 +31,11 @@ public class TankView : MonoBehaviour
         tankMovement();      
  
         handleTankRotation(); 
+    }
+
+    public void setFireButtonFunction()
+    {
+        playerController.fireButton.GetComponent<Button>().onClick.AddListener(() => playerController.fireBullet());
     }
 
 
