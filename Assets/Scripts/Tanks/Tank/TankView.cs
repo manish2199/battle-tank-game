@@ -20,7 +20,7 @@ public class TankView : MonoBehaviour
 
     void Start()
     {
-        print(playerController.tankModelScript.tankType + " has been created " );
+        print(playerController.tankModelScript.playerTankType + " has been created " );
 
         setFireButtonFunction();
     }

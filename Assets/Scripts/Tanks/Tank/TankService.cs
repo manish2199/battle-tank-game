@@ -5,26 +5,34 @@ using UnityEngine.UI;
 
 public class TankService : GenericSingleton<TankService>
 {    
-    
-    [SerializeField] TankScriptableObjectList tankScriptableObjectList;
-    
-    // Postion to spwan tank
-    [SerializeField]  Transform tankInstantiatePosition;
+    // Player Tank
+    [Header("PlayerTank Settings")]
+    private TankModel tankModel; 
+    private PlayerTankController playerTank;
+    [HideInInspector] public Transform tankTransform;
+    [SerializeField]  private Transform tankInstantiatePosition;            // Postion to spwan player tank
+    [SerializeField] private TankScriptableObjectList playerTankScriptableObjectList;
 
 
     // Input Button and Joysticks
-    [SerializeField] Button fireButton;
-    [SerializeField] Joystick movementJoystick;
-    [SerializeField] Joystick rotationJoystick;
-    
-    TankModel tankModel; 
-    
-    TankController tankController;
+    [SerializeField] private Button fireButton;
+    [SerializeField] private Joystick movementJoystick;
+    [SerializeField] private Joystick rotationJoystick;
 
-    PlayerTank  playerTank;
 
-    [HideInInspector] public Transform tankTransform;
+//   [Header("Shield Settings")]
+    [Header("EnemyTank Settings")]
+    // Enemy Tank
+    private EnemyTankModel enemyTankModel;
+    private EnemyTankController enemyTankController;
+    [SerializeField] private Transform enemyTankInstantiatePosition;            // Postion to spwan enemy tank
+     
+    [SerializeField] private EnemyTankScriptableObject enemyTankScriptableObject;
 
+    // Enemy tanks patrolling waypoints
+    [SerializeField] Transform[] enemy1WayPoints;
+
+     
     protected override void Awake()
 	{
 		base.Awake();
@@ -33,31 +41,44 @@ public class TankService : GenericSingleton<TankService>
     void Start()
     {
       
-       instantiateTank(); 
+       instantiatePlayerTank(); 
+
+       instantiateEnemyTank();
 
     }
+
+
+    private void instantiateEnemyTank()
+    {
+        enemyTankModel = new EnemyTankModel(enemyTankScriptableObject);
+    
+    //    (EnemyTankModel enemyTankModel , GameObject enemyTankPrefab , Transform positionToSpawn , Transform[] enemyPtrollingWaypoints)
+
+        enemyTankController = new EnemyTankController(enemyTankModel,enemyTankScriptableObject.tankPrefab,enemyTankInstantiatePosition,enemy1WayPoints);
+    }
+
+
  
-    void instantiateTank()
+    private void instantiatePlayerTank()
     {
 
-       TankScriptableObject tank = getRandomTank();
+       TankScriptableObject tank = getRandomPlayerTankScriptableObject();
         
        tankModel = new TankModel(tank);
-       tankController = new TankController(tankModel,tank.tankPrefab,fireButton,movementJoystick,rotationJoystick,tankInstantiatePosition);
-       tankTransform = tankController.tankViewScript.TankTransform;
-
+       playerTank = new PlayerTankController(tankModel,tank.tankPrefab,fireButton,movementJoystick,rotationJoystick,tankInstantiatePosition);
+       tankTransform = playerTank.tankViewScript.TankTransform;
     }
 
-    TankScriptableObject getRandomTank()
+    private TankScriptableObject getRandomPlayerTankScriptableObject()
     {
-        int max =(tankScriptableObjectList.tankLists.Length - 1);
-        // TankScriptableObject tank = tankScriptableObjectList.tankLists[getRandomNumber(0,max)]; 
-        TankScriptableObject tank = tankScriptableObjectList.tankLists[2]; 
+        int max =(playerTankScriptableObjectList.tankLists.Length - 1);
+        TankScriptableObject tank = playerTankScriptableObjectList.tankLists[getRandomNumber(0,max)];  
+        // TankScriptableObject tank = tankScriptableObjectList.tankLists[1];  
        return tank;
     }
 
 
-    int getRandomNumber(int max , int min)
+    private int getRandomNumber(int max , int min)
     {
         return Random.Range(max,min);    
     }

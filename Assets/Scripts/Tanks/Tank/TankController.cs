@@ -9,7 +9,7 @@ public class TankController
     public TankView tankViewScript { get;}
     
 
-    public TankModel tankModelScript { get;}
+    public TankModel tankModelScript { get; }
     
     
     public Joystick MovementJoystick { get; }
@@ -39,7 +39,7 @@ public class TankController
     } 
 
 
-    public void fireBullet()
+    public virtual void fireBullet()
     {
         if(fireButton != null)
         {
@@ -69,4 +69,5 @@ public class TankController
     {
         tankViewScript.TankTransform.Rotate(0, RotationJoystick.Horizontal * tankModelScript.RotationSpeed * Time.deltaTime , 0);
     }
+
 }

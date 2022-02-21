@@ -16,6 +16,6 @@ MonoBehaviour:
   tankPrefab: {fileID: 454839567877243290, guid: 2b313afc9a1e8cb4ca367dcec8fb3a16,
     type: 3}
   Health: 100
-  RotationSpeed: 350
+  RotationSpeed: 250
   Speed: 15
   bulletType: {fileID: 11400000, guid: c2c6b53e807aca34e8e80e0ec7da3ce3, type: 2}
