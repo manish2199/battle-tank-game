@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaa79c82b947f3345aafede335758e20, type: 3}
   m_Name: YellowBulletScriptableObject
   m_EditorClassIdentifier: 
-  bulletType: 3
+  bulletType: 1
   bulletPrefab: {fileID: 4887927676300078733, guid: 0a797825a96f3a94aa5022f10f0f1fcd,
     type: 3}
   bulletSpeed: 15

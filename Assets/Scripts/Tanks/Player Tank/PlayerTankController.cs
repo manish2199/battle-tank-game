@@ -6,29 +6,29 @@ using UnityEngine;
 public class PlayerTankController : TankController
 {
 
-    public PlayerTankController(TankModel tankModel , GameObject tankPrefab , Button fireButton , Joystick movementJoystick , Joystick rotationJoystick , Transform pos) : base (tankModel,tankPrefab,fireButton,movementJoystick,rotationJoystick,pos)
-    {} 
+    public PlayerTankController(TankModel tankModel , GameObject tankPrefab , Button fireButton , Joystick movementJoystick , Joystick rotationJoystick , Transform positionToInstantiate)
+    { 
+        tankModelScript = tankModel;
+ 
+       GameObject temp  = GameObject.Instantiate(tankPrefab,positionToInstantiate);
+       tankViewScript = temp.GetComponent<PlayerTankView>();
+
+       MovementJoystick = movementJoystick;
+       RotationJoystick = rotationJoystick;
+       this.fireButton = fireButton;
+
+       tankViewScript.playerController = this; 
+
+    } 
     
-   public override void fireBullet()
-    {
-        base.fireBullet();
-    }
+    public override void takeDamage(BulletView bulletView)
+    { 
+        if(bulletView.bulletController.bulletModelScript.bulletType == BulletType.EnemyBullet)
+        {
+            Debug.Log("hit by Enemy");
+            reduceHealth(bulletView.bulletController.bulletModelScript.Damage);
 
-
-    public override void moveTankForward()
-    {
-        base.moveTankForward(); 
-    }
-
-
-    public override void moveTankBackWard()
-    {
-       base.moveTankBackWard();
-    }
-
-
-    public override void tankRotation()
-    {
-       base.tankRotation();
+            tankViewScript.destroyBullet(bulletView);
+        }
     }
 }

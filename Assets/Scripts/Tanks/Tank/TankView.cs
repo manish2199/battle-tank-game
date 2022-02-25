@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using UnityEngine;
 
 
-public class TankView : MonoBehaviour
+public abstract class TankView : MonoBehaviour
 {
     
     public TankController playerController;
@@ -17,14 +17,12 @@ public class TankView : MonoBehaviour
     [SerializeField] private Transform bulletFireTransform;
     public Transform BulletFireTransform { get { return bulletFireTransform;} } 
 
+    [HideInInspector]public int health ;
 
     void Start()
     {
-        print(playerController.tankModelScript.playerTankType + " has been created " );
-
-        setFireButtonFunction();
+        health = playerController.tankModelScript.Health;
     }
-
 
     void Update()
     {
@@ -33,11 +31,10 @@ public class TankView : MonoBehaviour
         handleTankRotation(); 
     }
 
-    public void setFireButtonFunction()
-    {
-        playerController.fireButton.GetComponent<Button>().onClick.AddListener(() => playerController.fireBullet());
-    }
-
+    public abstract void destroyTank();
+    // {
+    //     Destroy(this.gameObject);
+    // }
 
     public void tankMovement()
     {
@@ -50,8 +47,6 @@ public class TankView : MonoBehaviour
        {
             playerController.moveTankBackWard();
        }       
-       else
-       {}
     }
 
     public void handleTankRotation()
@@ -63,7 +58,8 @@ public class TankView : MonoBehaviour
            playerController.tankRotation();
         }
     }
+  
 
-   
+    public abstract void destroyBullet(BulletView bullet);
 
 }

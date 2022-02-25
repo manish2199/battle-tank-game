@@ -12,11 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e59c1254fd4c8564693f300169609354, type: 3}
   m_Name: RedEnemyTank
   m_EditorClassIdentifier: 
-  tankType: 0
-  tankPrefab: {fileID: 0}
-  Health: 0
+  playerTankType: 0
   RotationSpeed: 0
-  Speed: 0
-  bulletType: {fileID: 0}
-  tankType: 0
-  targetDetectingRange: 0
+  tankType: 1
+  tankPrefab: {fileID: 5690288136091536225, guid: ddfd3c6b5954e7a4c99b9a943d55ad50,
+    type: 3}
+  Health: 100
+  Speed: 3.5
+  bulletType: {fileID: 11400000, guid: b5f7b8d53cff91546ad61df3b2f15f9b, type: 2}
+  targetDetectingRange: 8
+  stoppingDistanceFromPlayer: 6
+  stoppingDistanceFromObstacle: 4
+  deathEffect: {fileID: 7829884719181797773, guid: 558854fff4037d94697534f41940a9ac,
+    type: 3}

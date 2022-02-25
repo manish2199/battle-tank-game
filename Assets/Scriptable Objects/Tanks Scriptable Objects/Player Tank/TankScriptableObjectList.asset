@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tankLists:
   - {fileID: 11400000, guid: 1c924044feb592a4a8dbed95e434352e, type: 2}
-  - {fileID: 11400000, guid: b3077710c1bf0d4429f1811aaafb3941, type: 2}
   - {fileID: 11400000, guid: cad39f81337b078458f4a05f9656c55f, type: 2}
+  - {fileID: 11400000, guid: b3077710c1bf0d4429f1811aaafb3941, type: 2}

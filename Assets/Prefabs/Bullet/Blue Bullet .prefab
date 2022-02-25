@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8436395387613850343}
   - component: {fileID: 8999574118312248530}
   - component: {fileID: 422247713441933966}
+  - component: {fileID: -1838270732211215359}
   m_Layer: 0
   m_Name: 'Blue Bullet '
   m_TagString: Untagged
@@ -63,6 +64,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &-1838270732211215359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3126743971587331909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd720560e9f04df47bcc40942faa0efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rgb: {fileID: 422247713441933966}
 --- !u!1001 &7846701618587776884
 PrefabInstance:
   m_ObjectHideFlags: 0

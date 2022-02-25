@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b944826b5b94dc0428cf3ca25801ae79, type: 3}
   m_Name: HighDamageTank
   m_EditorClassIdentifier: 
-  tankType: 2
+  playerTankType: 2
+  RotationSpeed: 250
+  tankType: 0
   tankPrefab: {fileID: 9219918954600450572, guid: 2d3cb2b89ecc53a40b22f218e5c777f5,
     type: 3}
   Health: 100
-  RotationSpeed: 250
   Speed: 6
-  bulletType: {fileID: 11400000, guid: b0ea31df83f1f3247b10a8f4ff94ff57, type: 2}
+  bulletType: {fileID: 11400000, guid: c2c6b53e807aca34e8e80e0ec7da3ce3, type: 2}

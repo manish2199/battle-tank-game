@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7304965721644635174}
   - component: {fileID: 7822897192002271763}
   - component: {fileID: 1560580249762288719}
+  - component: {fileID: 5307537790453235418}
   m_Layer: 0
   m_Name: Red Bullet
   m_TagString: Untagged
@@ -63,6 +64,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &5307537790453235418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4255908681183504772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd720560e9f04df47bcc40942faa0efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rgb: {fileID: 1560580249762288719}
 --- !u!1001 &8976095146849798581
 PrefabInstance:
   m_ObjectHideFlags: 0

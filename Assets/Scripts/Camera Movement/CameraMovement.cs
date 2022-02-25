@@ -6,12 +6,17 @@ public class CameraMovement : MonoBehaviour
 {
    Transform targetAngle;
 
-   [SerializeField] TankService tankService; 
+  Transform playerTankTransform; 
 
   [SerializeField] float OffsetX = 4f;
   [SerializeField] float OffsetZ = 20f;
 
    [SerializeField] float lerRate; 
+
+  void Start()
+  {
+      playerTankTransform = PlayerTankService.Instance.tankTransform;
+  }
 
 
    void Update()
@@ -27,10 +32,13 @@ public class CameraMovement : MonoBehaviour
 
    void cameraMovement()
    {
-        float xAxis = Mathf.Lerp(transform.position.x,tankService.tankTransform.position.x,lerRate);
-        float zAxis = Mathf.Lerp(transform.position.z,tankService .tankTransform.position.z,lerRate);
+       if(playerTankTransform != null)
+       {
+        float xAxis = Mathf.Lerp(transform.position.x,playerTankTransform.position.x,lerRate);
+        float zAxis = Mathf.Lerp(transform.position.z,playerTankTransform.position.z,lerRate);
 
         transform.position = new Vector3(xAxis - OffsetX,transform.position.y, zAxis - OffsetZ );
+       }
    }
 
   
@@ -38,7 +46,7 @@ public class CameraMovement : MonoBehaviour
 
    void cameraRotation()
    {
-       targetAngle = tankService.tankTransform;
+       targetAngle = playerTankTransform;
 
        transform.LookAt(targetAngle);
    }

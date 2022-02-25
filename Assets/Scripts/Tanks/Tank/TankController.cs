@@ -3,52 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TankController 
+public abstract class TankController 
 {   
+    public bool playerDied { get; protected set; }
     
-    public TankView tankViewScript { get;}
+    public TankView tankViewScript { get;  protected set; }
     
 
-    public TankModel tankModelScript { get; }
+    public TankModel tankModelScript { get; protected set; }
     
     
-    public Joystick MovementJoystick { get; }
+    public Joystick MovementJoystick { get; protected set; }
 
     
-    public Joystick RotationJoystick { get; }
+    public Joystick RotationJoystick { get; protected set; }
      
 
-    public Button fireButton { get; } 
-
-
+    public Button fireButton { get; protected  set; } 
+    
+    
     public TankController(){}
 
     
-    public TankController(TankModel tankModel  , GameObject tankPrefab  , Button fireButton ,  Joystick movementJoystick  , Joystick rotationJoystick  ,  Transform pos)
-    {
-       tankModelScript = tankModel;
- 
-       GameObject temp  = GameObject.Instantiate(tankPrefab,pos);
-       tankViewScript = temp.GetComponent<TankView>();
+    public TankController(TankModel tankModel  , GameObject tankPrefab  , Button fireButton ,  Joystick movementJoystick  , Joystick rotationJoystick  ,  Transform positionToInstantiate )
+    {}
 
-       MovementJoystick = movementJoystick;
-       RotationJoystick = rotationJoystick;
-       this.fireButton = fireButton;
-
-       tankViewScript.playerController = this;
-    } 
+    public abstract void takeDamage(BulletView bulletView);
 
 
-    public virtual void fireBullet()
-    {
-        if(fireButton != null)
+    public virtual void reduceHealth(int damage)
+    { 
+        tankModelScript.Health -= damage;
+        Debug.Log("Health Of Tank " + tankModelScript.tankType +" is " + tankModelScript.Health);
+        if(tankModelScript.Health <= 0)
         {
-            GameObject bulletPrefab = tankModelScript. bulletScriptableObject.bulletPrefab;
-            Transform bulletFireTransform = tankViewScript.BulletFireTransform;
-            float speed = tankModelScript.bulletScriptableObject.bulletSpeed;
-
-            GameObject bulletGameObject = GameObject.Instantiate(bulletPrefab,bulletFireTransform.position,bulletFireTransform.transform.rotation);
-            bulletGameObject.GetComponent<Rigidbody>().AddForce(bulletFireTransform.forward * speed , ForceMode.Impulse);          
+            playerDied = true;
+            tankViewScript.destroyTank();
         }
     }
 

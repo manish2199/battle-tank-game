@@ -309,11 +309,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5690288136091536225}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.6180804, y: 8.942935, z: 0.47262424}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5690288135444184493}
   - {fileID: 1324123718157140500}
+  - {fileID: 819953511137340165}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -355,19 +356,19 @@ NavMeshAgent:
   m_GameObject: {fileID: 5690288136091536225}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1.23
-  m_Speed: 5
+  m_Radius: 1.31
+  m_Speed: 3.5
   m_Acceleration: 10
   avoidancePriority: 50
-  m_AngularSpeed: 150
-  m_StoppingDistance: 0.2
+  m_AngularSpeed: 250
+  m_StoppingDistance: 3.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 1.77
+  m_Height: 1.76
   m_BaseOffset: 0.75
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 2
+  m_ObstacleAvoidanceType: 4
 --- !u!114 &6349662815203608430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,8 +383,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tankTransform: {fileID: 5690288136091536156}
   bulletFireTransform: {fileID: 1324123718157140500}
+  health: 0
   agent: {fileID: 0}
-  targetWayPoint: {x: 0, y: 0, z: 0}
+  tankRenderers: {fileID: 5690288135444184492}
 --- !u!1 &5690288136643482984
 GameObject:
   m_ObjectHideFlags: 0
@@ -490,9 +492,53 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6312346816458747899}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.067, y: 0.856, z: 1.189}
+  m_LocalPosition: {x: 0.067, y: 0.856, z: 1.41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5690288136091536156}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6566981891114058180
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 819953511137340165}
+  - component: {fileID: 2806613012887226635}
+  m_Layer: 0
+  m_Name: TargetDetection Sensor
+  m_TagString: EnemyDetector
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &819953511137340165
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6566981891114058180}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5690288136091536156}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &2806613012887226635
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6566981891114058180}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 7.68
+  m_Center: {x: 0, y: 0, z: 0}

@@ -4,7 +4,11 @@ using UnityEngine;
 [CreateAssetMenu (fileName = "EnemyTankScriptableObject", menuName = "ScriptableObject/NewEnemyTankScriptableObject")]
 public class EnemyTankScriptableObject : TankScriptableObject
 { 
-    public TankType tankType;
     public float targetDetectingRange;
 
+    public float stoppingDistanceFromPlayer ;
+
+    public float stoppingDistanceFromObstacle ;
+
+    public ParticleSystem deathEffect ; 
 }

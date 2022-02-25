@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2136146206803596079}
   - component: {fileID: 1465338640663657754}
   - component: {fileID: 7884999542037893958}
+  - component: {fileID: 5797648162426532411}
   m_Layer: 0
   m_Name: 'Yellow Bullet '
   m_TagString: Untagged
@@ -61,8 +62,21 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!114 &5797648162426532411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4887927676300078733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd720560e9f04df47bcc40942faa0efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rgb: {fileID: 7884999542037893958}
 --- !u!1001 &311892742987583164
 PrefabInstance:
   m_ObjectHideFlags: 0

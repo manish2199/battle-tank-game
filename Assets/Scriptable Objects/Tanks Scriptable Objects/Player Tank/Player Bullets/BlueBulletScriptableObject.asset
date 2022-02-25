@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaa79c82b947f3345aafede335758e20, type: 3}
   m_Name: BlueBulletScriptableObject
   m_EditorClassIdentifier: 
-  bulletType: 2
+  bulletType: 1
   bulletPrefab: {fileID: 3126743971587331909, guid: 57f9542bf8e0c0443a7677680ae43c8a,
     type: 3}
   bulletSpeed: 10

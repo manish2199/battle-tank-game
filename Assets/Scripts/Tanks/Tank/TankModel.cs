@@ -15,7 +15,10 @@ public class TankModel
       Health = tank.Health;
       RotationSpeed = tank.RotationSpeed;
       bulletScriptableObject = tank.bulletType;
+      tankType = tank.tankType;
    }
+
+   public TankType tankType { get; }
 
    public  BulletScriptableObject  bulletScriptableObject { get; protected set; }
 
@@ -25,6 +28,10 @@ public class TankModel
 
    public float RotationSpeed { get; }
  
-   public float Health { get; protected set; }   
+   public int Health { get;  set; }   
 
 }
+
+
+
+    

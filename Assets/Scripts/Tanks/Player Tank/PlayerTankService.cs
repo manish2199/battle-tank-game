@@ -3,34 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TankService : GenericSingleton<TankService>
+public class PlayerTankService : GenericSingleton<PlayerTankService>
 {    
-    // Player Tank
-    [Header("PlayerTank Settings")]
     private TankModel tankModel; 
     private PlayerTankController playerTank;
+
+    public bool IsPlayerDied { get; protected set; }
+ 
     [HideInInspector] public Transform tankTransform;
+
+
     [SerializeField]  private Transform tankInstantiatePosition;            // Postion to spwan player tank
     [SerializeField] private TankScriptableObjectList playerTankScriptableObjectList;
+    [HideInInspector] public Transform firingPosition;
 
 
     // Input Button and Joysticks
     [SerializeField] private Button fireButton;
     [SerializeField] private Joystick movementJoystick;
     [SerializeField] private Joystick rotationJoystick;
-
-
-//   [Header("Shield Settings")]
-    [Header("EnemyTank Settings")]
-    // Enemy Tank
-    private EnemyTankModel enemyTankModel;
-    private EnemyTankController enemyTankController;
-    [SerializeField] private Transform enemyTankInstantiatePosition;            // Postion to spwan enemy tank
-     
-    [SerializeField] private EnemyTankScriptableObject enemyTankScriptableObject;
-
-    // Enemy tanks patrolling waypoints
-    [SerializeField] Transform[] enemy1WayPoints;
 
      
     protected override void Awake()
@@ -40,33 +31,48 @@ public class TankService : GenericSingleton<TankService>
 
     void Start()
     {
-      
        instantiatePlayerTank(); 
-
-       instantiateEnemyTank();
-
     }
 
-
-    private void instantiateEnemyTank()
+    void Update()
     {
-        enemyTankModel = new EnemyTankModel(enemyTankScriptableObject);
-    
-    //    (EnemyTankModel enemyTankModel , GameObject enemyTankPrefab , Transform positionToSpawn , Transform[] enemyPtrollingWaypoints)
-
-        enemyTankController = new EnemyTankController(enemyTankModel,enemyTankScriptableObject.tankPrefab,enemyTankInstantiatePosition,enemy1WayPoints);
+        IsPlayerDied = playerTank.playerDied;
     }
 
 
  
     private void instantiatePlayerTank()
-    {
+    { 
+       TankScriptableObject tank = setPlayerTankModel();
 
+       playerTank = new PlayerTankController(tankModel,tank.tankPrefab,fireButton,movementJoystick,rotationJoystick,tankInstantiatePosition);
+       
+       
+       // Set position Transform
+       tankTransform = playerTank.tankViewScript.TankTransform;
+       
+       // Set Fire position
+       firingPosition = playerTank.tankViewScript.BulletFireTransform;
+     
+       fireButton.onClick.AddListener(() => fireBullet() );
+        
+    }
+
+
+    void fireBullet()
+    { 
+        BulletService.Instance.bulletFireTransform = firingPosition;
+        BulletService.Instance.activateBulletService(tankModel.bulletScriptableObject);
+    }
+
+    private TankScriptableObject setPlayerTankModel()
+    {
        TankScriptableObject tank = getRandomPlayerTankScriptableObject();
         
        tankModel = new TankModel(tank);
-       playerTank = new PlayerTankController(tankModel,tank.tankPrefab,fireButton,movementJoystick,rotationJoystick,tankInstantiatePosition);
-       tankTransform = playerTank.tankViewScript.TankTransform;
+       tankModel.bulletScriptableObject.bulletType = BulletType.PlayerBullet;
+
+       return tank;
     }
 
     private TankScriptableObject getRandomPlayerTankScriptableObject()

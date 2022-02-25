@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b944826b5b94dc0428cf3ca25801ae79, type: 3}
   m_Name: HighSpeedTank
   m_EditorClassIdentifier: 
-  tankType: 3
+  playerTankType: 3
+  tankType: 0
   tankPrefab: {fileID: 454839567877243290, guid: 2b313afc9a1e8cb4ca367dcec8fb3a16,
     type: 3}
   Health: 100
