@@ -6,20 +6,25 @@ public class BulletView : MonoBehaviour
 { 
    [HideInInspector] public BulletController bulletController;
 
-   [SerializeField] Rigidbody rgb;
-   public Rigidbody BulletRigidbody { get { return rgb;  } } 
+   public Rigidbody rgb;
 
-   void Start()
+   public Transform thisTransform;
+  
+   public void DestroyBullet()
    {
-      bulletController.addForecesToBullet();
+      Destroy(this.gameObject);
    }
 
-
    void OnTriggerEnter(Collider target)
-   {
-     if( target.gameObject.GetComponent<TankView>() == null && target.gameObject.GetComponent<EnemyTankView>() == null )
+   { 
+     IDamagable damagable = target.gameObject.GetComponent<IDamagable>();
+     if(damagable != null)
      {
-        Destroy(gameObject);
+         damagable.TakeDamage(bulletController.bulletModelScript.bulletType , bulletController.bulletModelScript.Damage , this );
+     }
+     else
+     {
+       Destroy(this.gameObject); 
      }
    }
 }

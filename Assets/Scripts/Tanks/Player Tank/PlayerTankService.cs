@@ -15,7 +15,6 @@ public class PlayerTankService : GenericSingleton<PlayerTankService>
 
     [SerializeField]  private Transform tankInstantiatePosition;            // Postion to spwan player tank
     [SerializeField] private TankScriptableObjectList playerTankScriptableObjectList;
-    [HideInInspector] public Transform firingPosition;
 
 
     // Input Button and Joysticks
@@ -49,20 +48,8 @@ public class PlayerTankService : GenericSingleton<PlayerTankService>
        
        
        // Set position Transform
-       tankTransform = playerTank.tankViewScript.TankTransform;
-       
-       // Set Fire position
-       firingPosition = playerTank.tankViewScript.BulletFireTransform;
-     
-       fireButton.onClick.AddListener(() => fireBullet() );
+       tankTransform = playerTank.playerTankViewScript.TankTransform;
         
-    }
-
-
-    void fireBullet()
-    { 
-        BulletService.Instance.bulletFireTransform = firingPosition;
-        BulletService.Instance.activateBulletService(tankModel.bulletScriptableObject);
     }
 
     private TankScriptableObject setPlayerTankModel()

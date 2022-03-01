@@ -1,28 +1,60 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class PlayerTankView : TankView
-{
-    public PlayerTankController playerTankController;
 
-    public void OnTriggerEnter(Collider target)
+public class PlayerTankView : TankView , IDamagable
+{  
+    public PlayerTankController playerTankController;   
+  
+    [SerializeField] private Transform bulletFireTransform;
+    public Transform BulletFireTransform { get { return bulletFireTransform;}  } 
+
+
+    void Start()
     {
-        print("Called trigger");
-        BulletView temp = target.GetComponent<BulletView>();
-        if(temp != null)
-        { 
-           playerController.takeDamage(temp);   
-        }
-    } 
+        playerTankController.SetFireButtonFunction();
+    }
 
-    public override void destroyBullet(BulletView bullet)
+   public void Update()
     {
-        Destroy(bullet.gameObject);
+        this.tankMovement();      
+ 
+        this.handleTankRotation(); 
+    }
+
+    public void TakeDamage(BulletType bulletType , int damage, BulletView bullet)
+    {
+        playerTankController.applyDamage(bulletType , damage , bullet );
     }
     
     public override void destroyTank()
     {
         Destroy(this.gameObject);
+    }
+   
+    public override void tankMovement()
+    {
+        // For Z axis
+       if(playerTankController.MovementJoystick.Vertical >=  0.2f)
+       {
+            playerTankController.moveTankForward();
+       }
+       else if(playerTankController.MovementJoystick.Vertical <= -0.2f)
+       {
+            playerTankController.moveTankBackWard();
+       }       
+    }
+
+
+    public override void handleTankRotation()
+    {
+        float xAxis = playerTankController.RotationJoystick.Horizontal;
+
+        if(Mathf.Abs(xAxis) > 0.3f)
+        {
+           playerTankController.tankRotation();
+        }
     }
 }

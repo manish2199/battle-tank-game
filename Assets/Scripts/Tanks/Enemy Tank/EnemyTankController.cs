@@ -6,20 +6,15 @@ using UnityEngine;
 
 public class EnemyTankController : TankController
 {
-    int wayPointIndex;
     
 	public bool isEnemyDies { get; protected set; }
-
-	Transform targetTransform;
     
 	public Transform[] EnemyPatrollingWayPoints { get; }
      
-	public EnemyTankView enemyTankViewScript { get;}
-    
+	public EnemyTankView enemyTankViewScript { get;}    
 
     public EnemyTankModel enemyTankModelScript { get; }
 
-	private Vector3 targetWayPoint;
 
     public EnemyTankController(EnemyTankModel enemyTankModel , GameObject enemyTankPrefab , Transform positionToSpawn , Transform[] enemyPtrollingWaypoints)
 	{
@@ -33,15 +28,14 @@ public class EnemyTankController : TankController
 	   EnemyPatrollingWayPoints = enemyPtrollingWaypoints;
 	}  
 
-	public override void takeDamage(BulletView bulletView)
+	public override void applyDamage(BulletType bulletType , int damage , BulletView bulletView)
 	{
-        if(bulletView.bulletController.bulletModelScript.bulletType == BulletType.PlayerBullet)
+        if(bulletType == BulletType.PlayerBullet)
         {
-			// Debug.Log("hit by player");
-            reduceHealth(bulletView.bulletController.bulletModelScript.Damage);
-            enemyTankViewScript.destroyBullet(bulletView);
+			bulletView.DestroyBullet();
+			Debug.Log("hit by player");
+            reduceHealth(damage);
 		}
-
 	} 
 
   	public void reduceHealth(int damage)
@@ -56,53 +50,21 @@ public class EnemyTankController : TankController
 	}
 
 	
-
-    public void patrolling()
-   {  
-		enemyTankViewScript.agent.stoppingDistance = enemyTankModelScript.stoppingDistanceFromObstacle ;
-       if(Vector3.Distance(enemyTankViewScript.TankTransform.position,targetWayPoint) < enemyTankModelScript.stoppingDistanceFromObstacle )
-	   { 
-         IterateWaypointIndex();
-		 UpdateDestination(); 
-	   }
-   }
-
-	public void chaseTheTarget(GameObject targetGameObject)
-	{
-		enemyTankViewScript.agent.stoppingDistance = enemyTankModelScript.stoppingDistanceFromPlayer;
-        enemyTankViewScript.agent.SetDestination(targetGameObject.transform.position);
+    public override void fireBullet()
+    {			
+        BulletController bulletController1 =  BulletService.Instance.activateBulletService(enemyTankModelScript.bulletScriptableObject);
+        bulletController1.setBulletFireTransform(enemyTankViewScript.bulletTransform);
+        bulletController1.setPosition();
+        bulletController1.FireBullet();
 	}
+	
+}
 
-    public void fireBullet( )
-	{ 
-       EnemyTankService.Instance.fireBullet(enemyTankModelScript.bulletScriptableObject , enemyTankViewScript.BulletFireTransform);
-	}
- 
-	public void faceTheTarget(Transform targetObject)
-    {
-        Vector3 direction = (targetObject.position -  enemyTankViewScript.TankTransform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x,0,direction.z));
-    	enemyTankViewScript.TankTransform.rotation = Quaternion.Slerp( enemyTankViewScript.TankTransform.rotation,lookRotation,Time.deltaTime*5f);
-    }
+
    
 
- 	public void UpdateDestination()
-	{
-        targetWayPoint = EnemyPatrollingWayPoints[wayPointIndex].position;
-		enemyTankViewScript.agent.SetDestination(targetWayPoint); 
-	}
+    
 
- 	public void IterateWaypointIndex()
-	{
-       wayPointIndex ++;
-	   if(wayPointIndex == EnemyPatrollingWayPoints.Length)
-	   {
-		   wayPointIndex = 0;
-	   }
-	}
+    
 
-
-
-
-
-}
+    

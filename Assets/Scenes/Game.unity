@@ -583,7 +583,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b99693a3a221bef43adf871fa7c22a58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletFireTransform: {fileID: 0}
 --- !u!4 &635130849
 Transform:
   m_ObjectHideFlags: 0
@@ -596,7 +595,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &696153784 stripped
 MonoBehaviour:
@@ -657,7 +656,6 @@ MonoBehaviour:
   tankInstantiatePosition: {fileID: 801338377}
   playerTankScriptableObjectList: {fileID: 11400000, guid: 00b0d39db072b034aa44e7af60fbf932,
     type: 2}
-  firingPosition: {fileID: 0}
   fireButton: {fileID: 1334741690}
   movementJoystick: {fileID: 696153784}
   rotationJoystick: {fileID: 1864677655}
@@ -706,12 +704,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 855358888}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 13.594095, y: 5.755688, z: -6.3885913}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1147430957
 GameObject:
@@ -1391,5 +1389,5 @@ Transform:
   - {fileID: 1147430958}
   - {fileID: 1243467377}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

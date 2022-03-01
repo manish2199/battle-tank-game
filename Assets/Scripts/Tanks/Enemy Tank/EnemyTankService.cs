@@ -23,7 +23,7 @@ public class EnemyTankService : GenericSingleton<EnemyTankService>
    void Start()
    {     
         instantiateEnemyTank();
-        print(PlayerTankService.Instance.IsPlayerDied);
+        //  print(PlayerTankService.Instance.IsPlayerDied);
 
    }
 
@@ -55,7 +55,7 @@ public class EnemyTankService : GenericSingleton<EnemyTankService>
     private void instantiateEnemyTank()
     {
         enemy1TankModel = new EnemyTankModel(enemyTankScriptableObject);
-        enemy1TankModel.bulletScriptableObject.bulletType = BulletType.EnemyBullet;
+        // enemy1TankModel.bulletScriptableObject.bulletType = BulletType.EnemyBullet;
 
         enemy1TankController = new EnemyTankController(enemy1TankModel,enemyTankScriptableObject.tankPrefab,enemyTankInstantiatePosition,enemy1WayPoints);
         particleEffectTransform = enemy1TankController.enemyTankViewScript.TankTransform;
@@ -63,9 +63,9 @@ public class EnemyTankService : GenericSingleton<EnemyTankService>
     }
 
 
-    public void fireBullet( BulletScriptableObject bulletScriptableObject , Transform bulletFireTransform )
-    {
-        BulletService.Instance.bulletFireTransform = bulletFireTransform;
-        BulletService.Instance.activateBulletService(bulletScriptableObject);
-    }
+    // public void fireBullet( BulletScriptableObject bulletScriptableObject , Transform bulletFireTransform )
+    // {
+    //     BulletService.Instance.bulletFireTransform = bulletFireTransform;
+    //     BulletService.Instance.activateBulletService(bulletScriptableObject);
+    // }
 }

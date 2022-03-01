@@ -161,8 +161,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5881889, y: 1.6580501, z: 2.0439694}
-  m_Center: {x: 0.21167922, y: 0.6997845, z: 0.17548227}
+  m_Size: {x: 1.5881889, y: 1.7921882, z: 1.9163424}
+  m_Center: {x: 0.21167922, y: 0.7334435, z: 0.111668885}
 --- !u!54 &7874658515671253495
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -193,7 +193,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tankTransform: {fileID: 1804311739018425286}
   bulletFireTransform: {fileID: 3704307426069181000}
-  health: 0
 --- !u!1 &5580890913039102479
 GameObject:
   m_ObjectHideFlags: 0

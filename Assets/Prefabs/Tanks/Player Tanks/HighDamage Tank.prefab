@@ -189,7 +189,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4089738703313233748}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.18, y: 0.67, z: 1.48}
+  m_LocalPosition: {x: -0.18, y: 0.67, z: 1.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 682240826308766149}
@@ -386,7 +386,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9219918954600450572}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.91, y: 6.11, z: 3.03}
+  m_LocalPosition: {x: -0.1852805, y: 6.881736, z: -0.28920487}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4041789695625249595}
@@ -424,8 +424,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5835726, y: 1.621954, z: 2.0997028}
-  m_Center: {x: -0.17991984, y: -0.07891369, z: 0.15541506}
+  m_Size: {x: 1.5835726, y: 1.8449111, z: 2.1028776}
+  m_Center: {x: -0.17991984, y: 0.03256488, z: 0.15700197}
 --- !u!114 &-7854934121609927932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -440,4 +440,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tankTransform: {fileID: 682240826308766149}
   bulletFireTransform: {fileID: 6322720263984689558}
-  health: 0

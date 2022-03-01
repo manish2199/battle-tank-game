@@ -15,7 +15,7 @@ MonoBehaviour:
   playerTankType: 0
   RotationSpeed: 0
   tankType: 1
-  tankPrefab: {fileID: 5690288136091536225, guid: ddfd3c6b5954e7a4c99b9a943d55ad50,
+  tankPrefab: {fileID: 7678427072206311037, guid: 0be4ca6c070888741b7fcbad3edb2fbb,
     type: 3}
   Health: 100
   Speed: 3.5
