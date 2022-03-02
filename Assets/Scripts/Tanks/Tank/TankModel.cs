@@ -7,6 +7,8 @@ public class TankModel
 
    public TankModel(){}
 
+   public int Score { get; set; }
+
 
    public TankModel(TankScriptableObject tank)
    {
@@ -16,7 +18,9 @@ public class TankModel
       RotationSpeed = tank.RotationSpeed;
       bulletScriptableObject = tank.bulletType;
       tankType = tank.tankType;
+      Score  = 0;
    }
+
 
    public TankType tankType { get; }
 

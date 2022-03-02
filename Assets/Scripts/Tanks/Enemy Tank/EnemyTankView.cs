@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class EnemyTankView :  TankView , IDamagable
 {
+  [SerializeField] BoxCollider collider;
+
   public EnemyTankController enemyTankController; 
 
   [SerializeField] GameObject tankRenderers;  
@@ -16,17 +18,25 @@ public class EnemyTankView :  TankView , IDamagable
   public Transform bulletTransform { get; protected set; }
 
   bool isPlayerDied;
-
+  
   private EnemyTankState currentState;
-
-
   public PatrollingState patrollingState;
   public AttackingState attackingState;
+
+  private void OnEnable()
+  {
+      PlayerTankService.PlayerDeath += StartEnemyDeathCoroutine;
+  }
+
+  private void OnDisable()
+  {
+      PlayerTankService.PlayerDeath -= StartEnemyDeathCoroutine;
+  }
 
   void Start()
   { 
     target = GameObject.FindWithTag("Player");
-    print(target.name);
+    // print(target.name);
 
     bulletTransform = enemyBulletFire;
 
@@ -51,59 +61,35 @@ public class EnemyTankView :  TankView , IDamagable
     Destroy(this.gameObject);
   }
 
+  public void StartEnemyDeathCoroutine()
+  {
+    StartCoroutine(EnemyDeath());
+  }
+
+
+  IEnumerator EnemyDeath()
+  { 
+    tankRenderers.SetActive(false);
+    collider.enabled = false;
+    GameObject.Instantiate(enemyTankController.enemyTankModelScript.DeathEffect,transform.position,Quaternion.identity);
+
+    yield return new WaitForSeconds(1.5f);
+
+    destroyTank();
+  
+  }
+
 
   public void TakeDamage(BulletType bulletType , int damage , BulletView bulletView)
   {
     enemyTankController.applyDamage(bulletType , damage , bulletView );
   }  
-    
+
+
 }
    
    
 
 
-// void OnTriggerEnter( Collider target)
-  // {
-  //   TankView temp =  target.gameObject.GetComponent<TankView>();
-  //   if( temp != null && temp.playerController.tankModelScript.tankType == TankType.TankPlayer)
-  //  	{
-  //       InvokeRepeating("FireBullet",1.5f,1.5f);
-  //   }
-  //   
-  // } 
 
 
-
-// void OnTriggerExit(Collider other)
-  // {
-  //    TankView temp =  other.gameObject.GetComponent<TankView>();
-  //    if( temp != null && temp.playerController.tankModelScript.tankType == TankType.TankPlayer)
-	// 	{
-	//        if(canChase && !canPatrol)
-	//        {
-	// 	        enemyTankController.UpdateDestination();
-  //           canPatrol = true;
-	// 	        canChase = false;
-	// 	        CancelInvoke();
-  //      }
-	// 	}
-  // }
-
-
-
-// void OnTriggerStay( Collider target)
-  // {
-	//   TankView temp =  target.gameObject.GetComponent<TankView>();
-  //   if( temp != null && temp.playerController.tankModelScript.tankType == TankType.TankPlayer)
-  //  	{
-	//     canChase = true;
-	//     canPatrol = false;
-	// 	  enemyTankController.chaseTheTarget(target.gameObject);
-      
-  //     if(Vector3.Distance(target.gameObject.transform.position,transform.position) <= sphereCollider.radius)
-  //     {
-  //       canShoot = true;
-	// 	    enemyTankController.faceTheTarget(target.gameObject.transform);
-	// 	  }      
-  //   }
-  // }

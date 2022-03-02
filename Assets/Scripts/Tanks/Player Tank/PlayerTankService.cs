@@ -1,14 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random=UnityEngine.Random;
 
 public class PlayerTankService : GenericSingleton<PlayerTankService>
-{    
+{   
+    public static event Action PlayerDeath;
+
+    public static event Action<BulletFireAchivement> BullFireAchv;
+    public static event Action<ContinuousBulletHit> BulletHitAchv;
+    public static event Action IncrementScore;
+    public static event Action<int> UpdateScoreUIText;
+
+
     private TankModel tankModel; 
     private PlayerTankController playerTank;
-
-    public bool IsPlayerDied { get; protected set; }
  
     [HideInInspector] public Transform tankTransform;
 
@@ -33,16 +41,37 @@ public class PlayerTankService : GenericSingleton<PlayerTankService>
        instantiatePlayerTank(); 
     }
 
-    void Update()
+
+    public void TriggerIncrementScoreEvent()
     {
-        IsPlayerDied = playerTank.playerDied;
+        IncrementScore?.Invoke();
+    }
+
+    public void TriggerUpdateScoreEvent(int score)
+    {
+        UpdateScoreUIText?.Invoke(score);
     }
 
 
- 
+    public void TriggerPlayerDeathEvent()
+    {
+        PlayerDeath?.Invoke();
+    }
+
+    public void TriggerBulletFireAchivement(BulletFireAchivement achivement)
+    {
+        BullFireAchv?.Invoke(achivement);
+    }
+
+    public void TriggerBulletHitAchievement(ContinuousBulletHit achivement)
+    {
+        BulletHitAchv?.Invoke(achivement);
+    }
+
+
     private void instantiatePlayerTank()
     { 
-       TankScriptableObject tank = setPlayerTankModel();
+       TankScriptableObject tank = setPlayerTankModel(); 
 
        playerTank = new PlayerTankController(tankModel,tank.tankPrefab,fireButton,movementJoystick,rotationJoystick,tankInstantiatePosition);
        
@@ -66,7 +95,6 @@ public class PlayerTankService : GenericSingleton<PlayerTankService>
     {
         int max =(playerTankScriptableObjectList.tankLists.Length - 1);
         TankScriptableObject tank = playerTankScriptableObjectList.tankLists[getRandomNumber(0,max)];  
-        // TankScriptableObject tank = tankScriptableObjectList.tankLists[1];  
        return tank;
     }
 
@@ -77,4 +105,21 @@ public class PlayerTankService : GenericSingleton<PlayerTankService>
     }
 
 
+}
+
+
+public enum BulletFireAchivement
+{
+    BegginerShooter,
+    AmateurShooter,
+    LegendaryShooter
+}
+
+
+
+public enum ContinuousBulletHit
+{
+    BronzeInWithoutMiss,
+    SilverINWithoutMiss,
+    GoldInWithoutMiss
 }

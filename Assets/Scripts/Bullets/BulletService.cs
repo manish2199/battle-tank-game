@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class BulletService : GenericSingleton<BulletService>
 {
-   // [HideInInspector]public Transform bulletFireTransform;  
-
    public BulletController activateBulletService(BulletScriptableObject bullet  )
    {
       BulletModel bulletModel = new BulletModel(bullet);

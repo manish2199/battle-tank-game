@@ -20,9 +20,17 @@ public class BulletView : MonoBehaviour
      IDamagable damagable = target.gameObject.GetComponent<IDamagable>();
      if(damagable != null)
      {
-         damagable.TakeDamage(bulletController.bulletModelScript.bulletType , bulletController.bulletModelScript.Damage , this );
+        damagable.TakeDamage(bulletController.bulletModelScript.bulletType , bulletController.bulletModelScript.Damage , this );
+        // if(bulletController.bulletModelScript.bulletType == BulletType.PlayerBullet)
+        // {
+           
+        // }
      }
-     else
+     if( damagable == null && bulletController.bulletModelScript.bulletType == BulletType.PlayerBullet)
+     {
+       EnemyTankService.Instance.resetEnemyHitCounter();
+     }
+     if(damagable == null)
      {
        Destroy(this.gameObject); 
      }

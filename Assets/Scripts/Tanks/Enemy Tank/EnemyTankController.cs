@@ -33,7 +33,8 @@ public class EnemyTankController : TankController
         if(bulletType == BulletType.PlayerBullet)
         {
 			bulletView.DestroyBullet();
-			Debug.Log("hit by player");
+			EnemyTankService.Instance.IncreaseEnemyHitCounter();
+			// Debug.Log("hit by player");
             reduceHealth(damage);
 		}
 	} 
@@ -44,8 +45,8 @@ public class EnemyTankController : TankController
         Debug.Log("Health Of Tank is " + enemyTankModelScript.Health);
 		if(enemyTankModelScript.Health <= 0 )
 		{
-			enemyTankViewScript.destroyTank();
-			isEnemyDies = true;
+			enemyTankViewScript.StartEnemyDeathCoroutine();
+			PlayerTankService.Instance.TriggerIncrementScoreEvent(); 
 		}
 	}
 

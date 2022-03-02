@@ -13,10 +13,12 @@ public class PlayerTankController : TankController
     
     public  PlayerTankView playerTankViewScript;
 
+    private int noOFBulletShots = 0;
+
     public PlayerTankController(TankModel tankModel , GameObject tankPrefab , Button fireButton , Joystick movementJoystick , Joystick rotationJoystick , Transform positionToInstantiate)
     { 
        tankModelScript = tankModel;
- 
+
        GameObject temp  = GameObject.Instantiate(tankPrefab,positionToInstantiate);
        playerTankViewScript = temp.GetComponent<PlayerTankView>();
 
@@ -26,8 +28,15 @@ public class PlayerTankController : TankController
 
        playerTankViewScript.playerTankController = this; 
     } 
+
     
-     public override void SetFireButtonFunction()
+    public void IncreasePlayerTankScore()
+    {
+        tankModelScript.Score ++;
+        PlayerTankService.Instance.TriggerUpdateScoreEvent(tankModelScript.Score);
+    }
+     
+    public override void SetFireButtonFunction()
     { 
         FireButton.onClick.AddListener(() => this.fireBullet() ); 
     }
@@ -35,24 +44,36 @@ public class PlayerTankController : TankController
 
     public override void fireBullet()
     {
-        // Debug.Log("Fired Bullet by Player");
-    
-       BulletController bulletController = BulletService.Instance.activateBulletService(tankModelScript.bulletScriptableObject);
+        BulletController bulletController = BulletService.Instance.activateBulletService(tankModelScript.bulletScriptableObject);
         bulletController.setBulletFireTransform(playerTankViewScript.BulletFireTransform);
         bulletController.setPosition();
         bulletController.FireBullet();
+        noOFBulletShots += 1;
+
+        if(noOFBulletShots == 5)
+        { 
+            PlayerTankService.Instance.TriggerBulletFireAchivement(BulletFireAchivement.BegginerShooter);
+        }
+        else if(noOFBulletShots == 10)
+        {
+            PlayerTankService.Instance.TriggerBulletFireAchivement(BulletFireAchivement.AmateurShooter);
+        }
+        else if(noOFBulletShots == 20)
+        {
+            PlayerTankService.Instance.TriggerBulletFireAchivement(BulletFireAchivement.LegendaryShooter);
+        }
     }
+
+
 
     
     public override void applyDamage(BulletType bulletType , int damage , BulletView bullet)
     { 
-        Debug.Log("hit by Bullet");
+        // Debug.Log("hit by Bullet");
         if(bulletType == BulletType.EnemyBullet)
         {
             bullet.DestroyBullet();
             reduceHealth(damage); 
-
-            // tankViewScript.destroyBullet(bulletView); 
         }
     }
 
@@ -63,6 +84,7 @@ public class PlayerTankController : TankController
         if(tankModelScript.Health <= 0)
         {
             playerDied = true;
+            PlayerTankService.Instance.TriggerPlayerDeathEvent();
             playerTankViewScript.destroyTank();
         }
     }

@@ -11,13 +11,27 @@ public class PlayerTankView : TankView , IDamagable
     [SerializeField] private Transform bulletFireTransform;
     public Transform BulletFireTransform { get { return bulletFireTransform;}  } 
 
+    void OnEnable()
+    { 
+       PlayerTankService.IncrementScore += increaseScore;
+    }
+
+    void OnDisable()
+    {
+       PlayerTankService.IncrementScore -= increaseScore;
+    }
+
+    void increaseScore()
+    {
+        playerTankController.IncreasePlayerTankScore();
+    }
 
     void Start()
     {
         playerTankController.SetFireButtonFunction();
     }
 
-   public void Update()
+    public void Update()
     {
         this.tankMovement();      
  

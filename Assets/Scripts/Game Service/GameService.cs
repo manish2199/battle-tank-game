@@ -9,23 +9,19 @@ public class GameService : MonoBehaviour
     bool startDestroyingEnviorment = false;
 
 
-    // Update is called once per frame
-    void Update()
-    {
-       if( PlayerTankService.Instance.IsPlayerDied && !startDestroyingEnviorment && EnemyTankService.Instance.enemiesDies)
-       {
-           startCoroutine();
-       }    
-    }
+   private void OnEnable()
+  {
+      PlayerTankService.PlayerDeath += startCoroutine;
+  }
 
+  private void OnDisable()
+  {
+      PlayerTankService.PlayerDeath -= startCoroutine;
+  }
 
    void startCoroutine()
    {
-       if(!startDestroyingEnviorment)
-      {
-       startDestroyingEnviorment = true;
        StartCoroutine(startDestruction());
-      }
    }
 
 
