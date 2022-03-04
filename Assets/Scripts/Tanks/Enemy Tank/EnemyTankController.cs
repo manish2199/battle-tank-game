@@ -32,7 +32,7 @@ public class EnemyTankController : TankController
 	{
         if(bulletType == BulletType.PlayerBullet)
         {
-			bulletView.DestroyBullet();
+			bulletView.bulletController.DestroyBullet();
 			EnemyTankService.Instance.IncreaseEnemyHitCounter();
 			// Debug.Log("hit by player");
             reduceHealth(damage);

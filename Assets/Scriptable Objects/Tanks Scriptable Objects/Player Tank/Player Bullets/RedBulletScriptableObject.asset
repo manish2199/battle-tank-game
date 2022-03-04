@@ -17,3 +17,5 @@ MonoBehaviour:
     type: 3}
   bulletSpeed: 20
   damage: 40
+  bulletView: {fileID: 5307537790453235418, guid: 57208393122d491419999d320cdd3b5c,
+    type: 3}

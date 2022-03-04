@@ -9,10 +9,18 @@ public class BulletView : MonoBehaviour
    public Rigidbody rgb;
 
    public Transform thisTransform;
-  
+
+
    public void DestroyBullet()
    {
-      Destroy(this.gameObject);
+      rgb.velocity = Vector3.zero;
+      BulletServicePool.Instance.ReturnItem(bulletController);
+      gameObject.SetActive(false);
+   }
+
+   public void EnableBullet()
+   {
+     gameObject.SetActive(true);
    }
 
    void OnTriggerEnter(Collider target)
@@ -21,18 +29,14 @@ public class BulletView : MonoBehaviour
      if(damagable != null)
      {
         damagable.TakeDamage(bulletController.bulletModelScript.bulletType , bulletController.bulletModelScript.Damage , this );
-        // if(bulletController.bulletModelScript.bulletType == BulletType.PlayerBullet)
-        // {
-           
-        // }
      }
      if( damagable == null && bulletController.bulletModelScript.bulletType == BulletType.PlayerBullet)
      {
-       EnemyTankService.Instance.resetEnemyHitCounter();
+        EnemyTankService.Instance.resetEnemyHitCounter();
      }
      if(damagable == null)
      {
-       Destroy(this.gameObject); 
+        DestroyBullet(); 
      }
    }
 }

@@ -44,10 +44,11 @@ public class PlayerTankController : TankController
 
     public override void fireBullet()
     {
-        BulletController bulletController = BulletService.Instance.activateBulletService(tankModelScript.bulletScriptableObject);
-        bulletController.setBulletFireTransform(playerTankViewScript.BulletFireTransform);
-        bulletController.setPosition();
-        bulletController.FireBullet();
+        BulletController bulletController1 = BulletService.Instance.activateBulletService(tankModelScript.bulletScriptableObject);
+        bulletController1.setBulletFireTransform(playerTankViewScript.BulletFireTransform);
+        bulletController1.setPosition();
+        bulletController1.FireBullet();
+        // Debug.Log("Fired"); 
         noOFBulletShots += 1;
 
         if(noOFBulletShots == 5)
@@ -106,3 +107,12 @@ public class PlayerTankController : TankController
         playerTankViewScript.TankTransform.Rotate(0,  RotationJoystick.Horizontal * tankModelScript.RotationSpeed * Time.deltaTime , 0);
     }
 }
+
+
+   
+
+      // BulletController bulletController = new BulletController(bulletModel , bullet.bulletPrefab); 
+       
+      // BulletController bulletController = bulletServicePool.GetBullet(bulletModel,bulletView);
+      // this.bullet = bulletController;
+      // return bulletController;

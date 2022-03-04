@@ -10,20 +10,20 @@ public class BulletController
 
     private Transform bulletFireTransform ;
 
-    public GameObject bulletGameObject;
+    // public GameObject bulletGameObject;
 
-    public BulletController(BulletModel bulletModel , GameObject bulletPrefab)
+    public BulletController(BulletModel bulletModel ,BulletView bulletView)
     {
        bulletModelScript = bulletModel;
 
        this.bulletFireTransform = bulletFireTransform; 
 
        
-       bulletGameObject = GameObject.Instantiate(bulletPrefab);
-       bulletViewScript = bulletGameObject.GetComponent<BulletView>();
+    //    bulletGameObject = GameObject.Instantiate(bulletPrefab);
+    //    bulletViewScript = bulletGameObject.GetComponent<BulletView>();
+        bulletViewScript = GameObject.Instantiate<BulletView>(bulletView);
 
        bulletViewScript.bulletController = this;
-
     }
 
     public void setBulletFireTransform(Transform bulletFire)
@@ -31,11 +31,15 @@ public class BulletController
         bulletFireTransform = bulletFire;
     } 
 
-
     public void setPosition()
     {
-        bulletGameObject.transform.rotation = bulletFireTransform.rotation;  
-        bulletGameObject.transform.position = bulletFireTransform.position;
+        bulletViewScript.thisTransform.rotation = bulletFireTransform.rotation;  
+        bulletViewScript.thisTransform.position = bulletFireTransform.position;
+    }
+
+    public void EnableBull()
+    {
+        bulletViewScript.EnableBullet();
     }
 
 
@@ -44,9 +48,9 @@ public class BulletController
         bulletViewScript.DestroyBullet();
     }
 
-
     public void FireBullet()
-    {   
+    {    
+        // setPosition();
         bulletViewScript.rgb.AddForce(bulletFireTransform.forward * bulletModelScript.BulletSpeed,ForceMode.Impulse);   
     }
 }
