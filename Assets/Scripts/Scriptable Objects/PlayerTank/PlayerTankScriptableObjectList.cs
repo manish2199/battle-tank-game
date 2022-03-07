@@ -2,8 +2,8 @@ using System;
 using UnityEngine;
 
 [CreateAssetMenu (fileName = "TankScriptableObject", menuName = "ScriptableObject/NewTankScriptableObjectList")]
-public class TankScriptableObjectList : ScriptableObject
+public class PlayerTankScriptableObjectList : ScriptableObject
 {
-   public TankScriptableObject[] tankLists;
+   public PlayerTankScriptableObject[] tankLists;
 }
 

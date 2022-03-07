@@ -4,17 +4,13 @@ using UnityEngine.UI;
 using UnityEngine;
 
 
-public abstract class TankView : MonoBehaviour 
+public abstract class TankView : MonoBehaviour , IDamagable
 {
     public TankController playerController;
     
-    [SerializeField] private Transform tankTransform;
-    public Transform TankTransform   { get { return tankTransform;} }  
-
-
-    public abstract void destroyTank();
-    
-    public virtual void tankMovement() {}
    
-    public virtual void handleTankRotation(){}
+    public abstract void destroyTank();
+
+    public virtual void TakeDamage(BulletType bulletType , int damage , BulletView bulletView){}
+  
 }

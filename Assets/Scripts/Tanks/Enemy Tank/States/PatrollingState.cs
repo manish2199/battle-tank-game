@@ -91,14 +91,14 @@ public class PatrollingState : EnemyTankState
     public override void  OnStateEnter() 
     {
         base.OnStateEnter();
-
-        // print("Patrolling State");   
         
         canPatrol = true;
+
+        AIagent.speed = enemyTankView.enemyTankController.enemyTankModelScript.Speed;
         
         EnemyPatrollingWayPoints = enemyTankView.enemyTankController.EnemyPatrollingWayPoints;
         
-        targetTransform = enemyTankView.target.transform;
+        targetTransform = enemyTankView.target;
 
         enemyTankController = enemyTankView.enemyTankController;
 
@@ -114,21 +114,10 @@ public class PatrollingState : EnemyTankState
     {
         canPatrol = false;
 
+         AIagent.speed = 0f;
+
         base.OnStateExit();
     }
 
 }
 
-
-//     public void patrolling()
-//    {  
-// 		enemyTankViewScript.agent.stoppingDistance = enemyTankModelScript.stoppingDistanceFromObstacle ;
-//        if(Vector3.Distance(enemyTankViewScript.TankTransform.position,targetWayPoint) < enemyTankModelScript.stoppingDistanceFromObstacle )
-// 	   { 
-//          IterateWaypointIndex();
-// 		 UpdateDestination(); 
-// 	   }
-//    }
-
-
-//   

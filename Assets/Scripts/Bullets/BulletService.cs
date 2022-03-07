@@ -15,9 +15,7 @@ public class BulletService : GenericSingleton<BulletService>
    {
       BulletModel bulletModel = new BulletModel(bullet);
       BulletView bulletView = bullet.bulletView;
-
-     // BulletView bulletView = bullet.bulletPrefab.GetComponent<BulletView>();
-       
+    
       BulletController bulletController = bulletServicePool.GetBullet(bulletModel,bulletView);
       bulletController.EnableBull();
 

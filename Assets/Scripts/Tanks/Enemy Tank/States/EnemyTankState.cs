@@ -17,7 +17,7 @@ public abstract class EnemyTankState : MonoBehaviour
         AIagent = GetComponent<NavMeshAgent>(); 
     }
 
-    public virtual void OnStateEnter() { this.enabled = true;  }
+    public virtual void OnStateEnter() { this.enabled = true; }
     public virtual void OnStateExit() { this.enabled = false; }
     
 }

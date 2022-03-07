@@ -84,9 +84,11 @@ public class AttackingState : EnemyTankState
     {
        base.OnStateEnter();
 
+         AIagent.speed = enemyTankView.enemyTankController.enemyTankModelScript.Speed;
+
        enemyTankController = enemyTankView.enemyTankController;
 
-       targetTransform = enemyTankView.target.transform;
+       targetTransform = enemyTankView.target;
 
        stoppingDistanceFromTarget = enemyTankController.enemyTankModelScript.stoppingDistanceFromPlayer;      
 

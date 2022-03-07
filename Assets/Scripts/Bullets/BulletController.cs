@@ -10,18 +10,13 @@ public class BulletController
 
     private Transform bulletFireTransform ;
 
-    // public GameObject bulletGameObject;
-
     public BulletController(BulletModel bulletModel ,BulletView bulletView)
     {
        bulletModelScript = bulletModel;
 
        this.bulletFireTransform = bulletFireTransform; 
 
-       
-    //    bulletGameObject = GameObject.Instantiate(bulletPrefab);
-    //    bulletViewScript = bulletGameObject.GetComponent<BulletView>();
-        bulletViewScript = GameObject.Instantiate<BulletView>(bulletView);
+       bulletViewScript = GameObject.Instantiate<BulletView>(bulletView);
 
        bulletViewScript.bulletController = this;
     }
@@ -50,7 +45,6 @@ public class BulletController
 
     public void FireBullet()
     {    
-        // setPosition();
         bulletViewScript.rgb.AddForce(bulletFireTransform.forward * bulletModelScript.BulletSpeed,ForceMode.Impulse);   
     }
 }

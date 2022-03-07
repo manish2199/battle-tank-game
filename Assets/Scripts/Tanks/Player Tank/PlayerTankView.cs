@@ -4,12 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class PlayerTankView : TankView , IDamagable
+public class PlayerTankView : TankView 
 {  
+    public AudioSource MovementAudio;
+
+    [SerializeField] private Transform tankTransform;
+    public Transform TankTransform   { get { return tankTransform; } }  
+
     public PlayerTankController playerTankController;   
   
     [SerializeField] private Transform bulletFireTransform;
-    public Transform BulletFireTransform { get { return bulletFireTransform;}  } 
+    public Transform BulletFireTransform { get { return bulletFireTransform;}  }  
+
+    public GameObject HealthBarCanvas;
+    public GameObject[] HealthBarImages;
 
     void OnEnable()
     { 
@@ -28,19 +36,30 @@ public class PlayerTankView : TankView , IDamagable
 
     void Start()
     {
-        playerTankController.SetFireButtonFunction();
+        playerTankController.SetFireButtonFunction(); 
+        playerTankController.SetOrignalPitch();
     }
 
     public void Update()
     {
-        this.tankMovement();      
+        playerTankController.tankMovement();      
  
-        this.handleTankRotation(); 
+        playerTankController.handleTankRotation(); 
+         
+        playerTankController.HandleEngineAudio();
     }
 
-    public void TakeDamage(BulletType bulletType , int damage, BulletView bullet)
+    private void LateUpdate()
+    {
+       playerTankController.SetOrientationOfHealthBar();
+    }
+
+    public override void TakeDamage(BulletType bulletType , int damage, BulletView bullet)
     {
         playerTankController.applyDamage(bulletType , damage , bullet );
+
+        // update the health bar
+        // playerTankController.UpdateTheHealthBar();
     }
     
     public override void destroyTank()
@@ -48,27 +67,4 @@ public class PlayerTankView : TankView , IDamagable
         Destroy(this.gameObject);
     }
    
-    public override void tankMovement()
-    {
-        // For Z axis
-       if(playerTankController.MovementJoystick.Vertical >=  0.2f)
-       {
-            playerTankController.moveTankForward();
-       }
-       else if(playerTankController.MovementJoystick.Vertical <= -0.2f)
-       {
-            playerTankController.moveTankBackWard();
-       }       
-    }
-
-
-    public override void handleTankRotation()
-    {
-        float xAxis = playerTankController.RotationJoystick.Horizontal;
-
-        if(Mathf.Abs(xAxis) > 0.3f)
-        {
-           playerTankController.tankRotation();
-        }
-    }
 }

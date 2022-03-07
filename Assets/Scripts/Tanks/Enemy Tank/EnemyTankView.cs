@@ -4,20 +4,22 @@ using UnityEngine.AI;
 using UnityEngine;
 
 
-public class EnemyTankView :  TankView , IDamagable
+public class EnemyTankView :  TankView 
 {
   [SerializeField] BoxCollider collider;
+
+   [SerializeField] private Transform tankTransform;
+   public Transform TankTransform   { get { return tankTransform; } }  
 
   public EnemyTankController enemyTankController; 
 
   [SerializeField] GameObject tankRenderers;  
 
-  [HideInInspector]public GameObject target;
+  [HideInInspector]public Transform target;
 
   [SerializeField] private Transform enemyBulletFire;  
   public Transform bulletTransform { get; protected set; }
 
-  bool isPlayerDied;
   
   private EnemyTankState currentState;
   public PatrollingState patrollingState;
@@ -35,8 +37,7 @@ public class EnemyTankView :  TankView , IDamagable
 
   void Start()
   { 
-    target = GameObject.FindWithTag("Player");
-    // print(target.name);
+    target = PlayerTankService.Instance.tankTransform;
 
     bulletTransform = enemyBulletFire;
 
@@ -80,7 +81,7 @@ public class EnemyTankView :  TankView , IDamagable
   }
 
 
-  public void TakeDamage(BulletType bulletType , int damage , BulletView bulletView)
+  public override void TakeDamage(BulletType bulletType , int damage , BulletView bulletView)
   {
     enemyTankController.applyDamage(bulletType , damage , bulletView );
   }  

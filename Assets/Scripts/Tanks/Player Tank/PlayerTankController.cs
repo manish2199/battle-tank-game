@@ -13,12 +13,17 @@ public class PlayerTankController : TankController
     
     public  PlayerTankView playerTankViewScript;
 
-    private int noOFBulletShots = 0;
+    public PlayerTankModel playerTankModelScript;
 
-    public PlayerTankController(TankModel tankModel , GameObject tankPrefab , Button fireButton , Joystick movementJoystick , Joystick rotationJoystick , Transform positionToInstantiate)
+    
+
+    private Camera camera;
+
+    public PlayerTankController(PlayerTankModel TankModel , GameObject tankPrefab , Button fireButton , Joystick movementJoystick , Joystick rotationJoystick , Transform positionToInstantiate, Camera camera)
     { 
-       tankModelScript = tankModel;
-
+       playerTankModelScript = TankModel;
+       this.camera = camera;  
+      
        GameObject temp  = GameObject.Instantiate(tankPrefab,positionToInstantiate);
        playerTankViewScript = temp.GetComponent<PlayerTankView>();
 
@@ -27,13 +32,15 @@ public class PlayerTankController : TankController
        FireButton = fireButton;
 
        playerTankViewScript.playerTankController = this; 
+
+       playerTankModelScript.TempPointer = playerTankViewScript.HealthBarImages.Length - 1 ;
     } 
 
     
     public void IncreasePlayerTankScore()
     {
-        tankModelScript.Score ++;
-        PlayerTankService.Instance.TriggerUpdateScoreEvent(tankModelScript.Score);
+        playerTankModelScript.Score ++;
+        PlayerTankService.Instance.TriggerUpdateScoreEvent(playerTankModelScript.Score);
     }
      
     public override void SetFireButtonFunction()
@@ -44,30 +51,57 @@ public class PlayerTankController : TankController
 
     public override void fireBullet()
     {
-        BulletController bulletController1 = BulletService.Instance.activateBulletService(tankModelScript.bulletScriptableObject);
+        BulletController bulletController1 = BulletService.Instance.activateBulletService( playerTankModelScript.bulletScriptableObject);
         bulletController1.setBulletFireTransform(playerTankViewScript.BulletFireTransform);
         bulletController1.setPosition();
         bulletController1.FireBullet();
         // Debug.Log("Fired"); 
-        noOFBulletShots += 1;
+        playerTankModelScript.noOFBulletShots += 1;
 
-        if(noOFBulletShots == 5)
+        if(playerTankModelScript.noOFBulletShots == 5)
         { 
             PlayerTankService.Instance.TriggerBulletFireAchivement(BulletFireAchivement.BegginerShooter);
         }
-        else if(noOFBulletShots == 10)
+        else if(playerTankModelScript.noOFBulletShots == 10)
         {
             PlayerTankService.Instance.TriggerBulletFireAchivement(BulletFireAchivement.AmateurShooter);
         }
-        else if(noOFBulletShots == 20)
+        else if(playerTankModelScript.noOFBulletShots == 20)
         {
             PlayerTankService.Instance.TriggerBulletFireAchivement(BulletFireAchivement.LegendaryShooter);
         }
     }
 
 
+    public void SetOrignalPitch()
+    {
+        playerTankModelScript.OrignalePitch = playerTankViewScript.MovementAudio.pitch;
+    } 
 
-    
+
+    public void HandleEngineAudio()
+    {
+        if(Mathf.Abs(MovementJoystick.Vertical) <= 0.2f  && Mathf.Abs(RotationJoystick.Horizontal) <= 0.2f  )
+        {
+            if(playerTankViewScript.MovementAudio.clip == playerTankModelScript.DrivingAudioClip)
+            {
+                playerTankViewScript.MovementAudio.clip = playerTankModelScript.IdleAudioClip;
+                playerTankViewScript.MovementAudio.pitch = Random.Range(playerTankModelScript.OrignalePitch-playerTankModelScript.PitchRange,playerTankModelScript.OrignalePitch+playerTankModelScript.PitchRange);
+                playerTankViewScript.MovementAudio.Play(); 
+            }
+        }   
+        else
+        {
+            if(playerTankViewScript.MovementAudio.clip == playerTankModelScript.IdleAudioClip)
+            {
+                playerTankViewScript.MovementAudio.clip = playerTankModelScript.DrivingAudioClip;
+                playerTankViewScript.MovementAudio.pitch = Random.Range(playerTankModelScript.OrignalePitch-playerTankModelScript.PitchRange,playerTankModelScript.OrignalePitch+playerTankModelScript.PitchRange);
+                playerTankViewScript.MovementAudio.Play(); 
+            }  
+        }   
+    }
+
+
     public override void applyDamage(BulletType bulletType , int damage , BulletView bullet)
     { 
         // Debug.Log("hit by Bullet");
@@ -79,10 +113,14 @@ public class PlayerTankController : TankController
     }
 
     public override void reduceHealth(int damage)
-    { 
-        tankModelScript.Health -= damage;
-        Debug.Log("Health Of Tank " + tankModelScript.tankType +" is " + tankModelScript.Health);
-        if(tankModelScript.Health <= 0)
+    {    
+        if(playerTankModelScript.Health > 0)
+        {
+          playerTankModelScript.Health -= damage;
+          UpdateTheHealthBar();
+         Debug.Log("Health Of Tank " + playerTankModelScript.tankType +" is " + playerTankModelScript.Health);
+        }
+        if(playerTankModelScript.Health <= 0)
         {
             playerDied = true;
             PlayerTankService.Instance.TriggerPlayerDeathEvent();
@@ -90,29 +128,71 @@ public class PlayerTankController : TankController
         }
     }
 
-     public override void moveTankForward()
+
+    public void UpdateTheHealthBar()
     {
-        playerTankViewScript.TankTransform.position += playerTankViewScript.TankTransform.forward * Time.deltaTime * tankModelScript.Speed;
+        int temp = playerTankModelScript.Health/10;
+        
+        if(temp <=0 )
+        {
+            return;
+        }
+
+        
+        for (int i = playerTankModelScript.TempPointer; i > temp; i--)
+        {
+            playerTankViewScript.HealthBarImages[i].SetActive(false);
+        }
+         
+        playerTankModelScript.TempPointer = temp; 
+       
+    }
+
+    public void SetOrientationOfHealthBar()
+    { 
+        playerTankViewScript.HealthBarCanvas.transform.LookAt(camera.transform);
+        playerTankViewScript.HealthBarCanvas.transform.Rotate(0,180,0);
+    }
+
+    public void tankMovement()
+    {
+        // For Z axis
+       if(MovementJoystick.Vertical >=  0.2f)
+       {
+        moveTankForward();
+       }
+       else if(MovementJoystick.Vertical <= -0.2f)
+       {
+           moveTankBackWard();
+       }       
+    }
+
+    
+    public void handleTankRotation()
+    {
+        float xAxis = RotationJoystick.Horizontal;
+
+        if(Mathf.Abs(xAxis) > 0.3f)
+        {
+           tankRotation();
+        }
+    }
+
+
+    public override void moveTankForward()
+    {
+        playerTankViewScript.TankTransform.position += playerTankViewScript.TankTransform.forward * Time.deltaTime * playerTankModelScript.Speed;
     }
 
 
     public override void moveTankBackWard()
     {
-        playerTankViewScript.TankTransform.position -= playerTankViewScript.TankTransform.forward * Time.deltaTime * tankModelScript.Speed;
+        playerTankViewScript.TankTransform.position -= playerTankViewScript.TankTransform.forward * Time.deltaTime * playerTankModelScript.Speed;
     }
 
 
     public override void tankRotation()
     {
-        playerTankViewScript.TankTransform.Rotate(0,  RotationJoystick.Horizontal * tankModelScript.RotationSpeed * Time.deltaTime , 0);
+        playerTankViewScript.TankTransform.Rotate(0,  RotationJoystick.Horizontal * playerTankModelScript.RotationSpeed * Time.deltaTime , 0);
     }
 }
-
-
-   
-
-      // BulletController bulletController = new BulletController(bulletModel , bullet.bulletPrefab); 
-       
-      // BulletController bulletController = bulletServicePool.GetBullet(bulletModel,bulletView);
-      // this.bullet = bulletController;
-      // return bulletController;
