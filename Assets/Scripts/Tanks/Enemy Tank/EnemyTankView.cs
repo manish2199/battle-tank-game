@@ -2,37 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AI;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class EnemyTankView :  TankView 
 {
+  public EnemyTankController enemyTankController; 
+  
+  public Transform TankTransform   { get { return tankTransform; } }  
+  
+  public Transform bulletTransform { get; protected set; }
+  
+  [HideInInspector]public Transform target;
+  
+  
   [SerializeField] BoxCollider collider;
 
-   [SerializeField] private Transform tankTransform;
-   public Transform TankTransform   { get { return tankTransform; } }  
-
-  public EnemyTankController enemyTankController; 
+  [SerializeField] private Transform tankTransform;
+  
 
   [SerializeField] GameObject tankRenderers;  
 
-  [HideInInspector]public Transform target;
-
   [SerializeField] private Transform enemyBulletFire;  
-  public Transform bulletTransform { get; protected set; }
 
-  
+  public GameObject HealthBarCanvas;
+
+  public Image healthForegroundImage;
+
   private EnemyTankState currentState;
   public PatrollingState patrollingState;
   public AttackingState attackingState;
 
   private void OnEnable()
   {
-      PlayerTankService.PlayerDeath += StartEnemyDeathCoroutine;
+      PlayerTankService.OnPlayerDeath += StartEnemyDeathCoroutine;
   }
 
   private void OnDisable()
   {
-      PlayerTankService.PlayerDeath -= StartEnemyDeathCoroutine;
+      PlayerTankService.OnPlayerDeath -= StartEnemyDeathCoroutine;
   }
 
   void Start()
@@ -44,6 +52,17 @@ public class EnemyTankView :  TankView
     GetComponent<NavMeshAgent>().speed = enemyTankController.enemyTankModelScript.Speed;
 
     SetState(patrollingState);
+  }
+
+  private void LateUpdate()
+  {
+     enemyTankController.SetOrientationOfHealthBar();
+  }
+
+
+  public void StartCoroutineHealth(float health)
+  {
+    StartCoroutine(enemyTankController.UpdateEnemyHealthBar(health));
   }
 
   public void SetState(EnemyTankState state)

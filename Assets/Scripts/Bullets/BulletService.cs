@@ -1,30 +1,39 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletService : GenericSingleton<BulletService>
 {
-   public BulletServicePool bulletServicePool; 
+   public BulletServicePool BulletServicePool; 
+   
+   public static event Action OnPlayerMissShot;
+
+   public void InvokeOnPlayerMiss()
+   {
+     OnPlayerMissShot?.Invoke();
+   }
 
    void Start()
    {
-      bulletServicePool = GetComponent<BulletServicePool>();
+      BulletServicePool = GetComponent<BulletServicePool>();
    }
 
    public BulletController activateBulletService(BulletScriptableObject bullet  )
    {
-      BulletModel bulletModel = new BulletModel(bullet);
-      BulletView bulletView = bullet.bulletView;
-    
-      BulletController bulletController = bulletServicePool.GetBullet(bulletModel,bulletView);
-      bulletController.EnableBull();
-
-      return bulletController;
+         BulletController  bulletController = null;
+      
+         BulletModel bulletModel = new BulletModel(bullet);
+         BulletView bulletView = bullet.bulletView;
+         bulletController = BulletServicePool.GetBullet(bulletModel,bulletView);
+         bulletController.EnableBull();
+      
+      return bulletController; 
    }
 
    public void returnBulletToPool(BulletController bulletController)
    { 
-      bulletServicePool.ReturnItem(bulletController); 
+      BulletServicePool.ReturnItem(bulletController); 
    }
 
 }

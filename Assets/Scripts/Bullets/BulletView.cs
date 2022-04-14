@@ -14,13 +14,16 @@ public class BulletView : MonoBehaviour
    public void DestroyBullet()
    {
       rgb.velocity = Vector3.zero;
+
       BulletServicePool.Instance.ReturnItem(bulletController);
+     
       gameObject.SetActive(false);
    }
 
    public void EnableBullet()
    {
-     gameObject.SetActive(true);
+     gameObject.SetActive(true); 
+     print(bulletController.bulletModelScript.bulletType);
    }
 
    void OnTriggerEnter(Collider target)
@@ -32,7 +35,8 @@ public class BulletView : MonoBehaviour
      }
      if( damagable == null && bulletController.bulletModelScript.bulletType == BulletType.PlayerBullet)
      {
-        EnemyTankService.Instance.resetEnemyHitCounter();
+      //   EnemyTankService.Instance.resetEnemyHitCounter();
+          BulletService.Instance.InvokeOnPlayerMiss();
      }
      if(damagable == null)
      {

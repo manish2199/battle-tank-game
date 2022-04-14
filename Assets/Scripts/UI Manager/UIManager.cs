@@ -4,23 +4,46 @@ using UnityEngine;
 using TMPro;
 
 
-public class UIManager : MonoBehaviour
+public class UIManager : GenericSingleton<UIManager>
 {
+   [SerializeField] TextMeshProUGUI ScoreText;
 
-    [SerializeField] TextMeshProUGUI scoreText;
+   [SerializeField] TextMeshProUGUI AchievementText;
+   [SerializeField] GameObject AchievementPanel ;
 
-    void OnEnable()
-    { 
-       PlayerTankService.UpdateScoreUIText += UpdateScoreText;
-    }
+   void OnEnable()
+   { 
+      Achievement.OnAchievementAcomplished += ShowAchievementText;
+      PlayerTankService.UpdateScoreUIText += UpdateScoreText;
+   }
 
-    void OnDisable()
-    {
-       PlayerTankService.UpdateScoreUIText -= UpdateScoreText;
-    }
+   void OnDisable()
+   {
+      Achievement.OnAchievementAcomplished -= ShowAchievementText;
+      PlayerTankService.UpdateScoreUIText -= UpdateScoreText;
+   }
 
-    private void UpdateScoreText(int Score)
-    {
-       scoreText.text = "Score = " + Score; 
-    }
+   private void ShowAchievementText(Achievement achievement)
+   {
+      StartCoroutine(AchievementTextCoroutin(achievement));
+   }
+
+   IEnumerator AchievementTextCoroutin(Achievement achievement)
+   {
+      print("Inside Coroutine");
+      AchievementText.text = achievement.AchievementText;
+       
+      yield return null;
+
+      AchievementPanel.gameObject.SetActive(true);
+
+      yield return new WaitForSeconds(3f);
+
+      AchievementPanel.gameObject.SetActive(false);
+   }
+
+   private void UpdateScoreText(int Score)
+   {
+      ScoreText.text = "Score = " + Score; 
+   }
 }

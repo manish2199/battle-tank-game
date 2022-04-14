@@ -25,5 +25,7 @@ public class EnemyTankModel : TankModel
    public float stoppingDistanceFromPlayer { get; }
 
    public float TargetDetectingRange { get; }
+
+   public float UpdateSpeedSeconds ;
    
 }

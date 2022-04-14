@@ -11,12 +11,12 @@ public class GameService : MonoBehaviour
 
    private void OnEnable()
   {
-      PlayerTankService.PlayerDeath += startCoroutine;
+      PlayerTankService.OnPlayerDeath += startCoroutine;
   }
 
   private void OnDisable()
   {
-      PlayerTankService.PlayerDeath -= startCoroutine;
+      PlayerTankService.OnPlayerDeath -= startCoroutine;
   }
 
    void startCoroutine()

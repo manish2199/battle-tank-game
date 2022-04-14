@@ -3,7 +3,7 @@ using System;
 // using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu (fileName = "TankScriptableObject", menuName = "ScriptableObject/NewTankScriptableObject")]
+[CreateAssetMenu (fileName = "TankScriptableObject", menuName = "ScriptableObject/NewTankScriptableObject")] 
 public class TankScriptableObject : ScriptableObject
 { 
     public TankType tankType;    

@@ -22,7 +22,6 @@ public class PatrollingState : EnemyTankState
 
     float enemyDetectionRange;
 
-    
 
     void Update()
     {

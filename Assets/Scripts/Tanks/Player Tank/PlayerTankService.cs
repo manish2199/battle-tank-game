@@ -7,15 +7,16 @@ using Random=UnityEngine.Random;
 
 public class PlayerTankService : GenericSingleton<PlayerTankService>
 {   
-    public static event Action PlayerDeath;
+    public static event Action OnPlayerDeath;
 
-    public static event Action<BulletFireAchivement> BullFireAchv;
-    public static event Action<ContinuousBulletHit> BulletHitAchv;
+    public static event Action OnBulletFire;
+
+    // public static event Action<ContinuousBulletHit> BulletHitAchv; 
     public static event Action IncrementScore;
     public static event Action<int> UpdateScoreUIText;
 
 
-    [SerializeReference]private PlayerTankModel tankModel; 
+    private PlayerTankModel tankModel; 
     private PlayerTankController playerTank;
     [HideInInspector] public Transform tankTransform;
 
@@ -55,18 +56,18 @@ public class PlayerTankService : GenericSingleton<PlayerTankService>
 
     public void TriggerPlayerDeathEvent()
     {
-        PlayerDeath?.Invoke();
+        OnPlayerDeath?.Invoke();
     }
 
-    public void TriggerBulletFireAchivement(BulletFireAchivement achivement)
+    public void InvokeBulletFireEvent()
     {
-        BullFireAchv?.Invoke(achivement);
+        OnBulletFire?.Invoke();
     }
 
-    public void TriggerBulletHitAchievement(ContinuousBulletHit achivement)
-    {
-        BulletHitAchv?.Invoke(achivement);
-    }
+    // public void TriggerBulletHitAchievement(ContinuousBulletHit achivement)
+    // {
+        // BulletHitAchv?.Invoke(achivement);
+    // }
 
 
     private void instantiatePlayerTank()
@@ -77,16 +78,6 @@ public class PlayerTankService : GenericSingleton<PlayerTankService>
        
        // Set position Transform
        this.tankTransform = playerTank.playerTankViewScript.TankTransform;
-       if(tankTransform == null)
-       {
-           print("TankTransform is null");
-       }
-       else
-       {
-           print("TRANSFORM" + tankTransform.position);
-           print("TankTransform is not null");
-       }
-        
     }
 
     private TankScriptableObject setPlayerTankModel()
@@ -111,21 +102,4 @@ public class PlayerTankService : GenericSingleton<PlayerTankService>
     {
         return Random.Range(max,min);    
     }
-}
-
-
-public enum BulletFireAchivement
-{
-    BegginerShooter,
-    AmateurShooter,
-    LegendaryShooter
-}
-
-
-
-public enum ContinuousBulletHit
-{
-    BronzeInWithoutMiss,
-    SilverINWithoutMiss,
-    GoldInWithoutMiss
 }

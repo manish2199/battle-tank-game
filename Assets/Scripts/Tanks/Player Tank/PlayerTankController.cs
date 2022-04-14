@@ -15,8 +15,6 @@ public class PlayerTankController : TankController
 
     public PlayerTankModel playerTankModelScript;
 
-    
-
     private Camera camera;
 
     public PlayerTankController(PlayerTankModel TankModel , GameObject tankPrefab , Button fireButton , Joystick movementJoystick , Joystick rotationJoystick , Transform positionToInstantiate, Camera camera)
@@ -33,7 +31,8 @@ public class PlayerTankController : TankController
 
        playerTankViewScript.playerTankController = this; 
 
-       playerTankModelScript.TempPointer = playerTankViewScript.HealthBarImages.Length - 1 ;
+       playerTankModelScript.TempPointer = playerTankViewScript.HealthBarImages.Length - 1;
+    //    Debug.Log(playerTankModelScript.TempPointer);
     } 
 
     
@@ -55,21 +54,8 @@ public class PlayerTankController : TankController
         bulletController1.setBulletFireTransform(playerTankViewScript.BulletFireTransform);
         bulletController1.setPosition();
         bulletController1.FireBullet();
-        // Debug.Log("Fired"); 
-        playerTankModelScript.noOFBulletShots += 1;
-
-        if(playerTankModelScript.noOFBulletShots == 5)
-        { 
-            PlayerTankService.Instance.TriggerBulletFireAchivement(BulletFireAchivement.BegginerShooter);
-        }
-        else if(playerTankModelScript.noOFBulletShots == 10)
-        {
-            PlayerTankService.Instance.TriggerBulletFireAchivement(BulletFireAchivement.AmateurShooter);
-        }
-        else if(playerTankModelScript.noOFBulletShots == 20)
-        {
-            PlayerTankService.Instance.TriggerBulletFireAchivement(BulletFireAchivement.LegendaryShooter);
-        }
+        Debug.Log("Fired"); 
+        PlayerTankService.Instance.InvokeBulletFireEvent();
     }
 
 

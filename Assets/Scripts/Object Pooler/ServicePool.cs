@@ -5,7 +5,7 @@ using UnityEngine;
 public class ServicePool<T> : GenericSingleton<ServicePool<T>> where T : class
 {
 
-   List<PoolItem<T>> pooledItems =  new List<PoolItem<T>>();
+   [HideInInspector] protected List<PoolItem<T>> pooledItems =  new List<PoolItem<T>>();
 
    public virtual T GetItem()
    {
@@ -14,7 +14,6 @@ public class ServicePool<T> : GenericSingleton<ServicePool<T>> where T : class
            PoolItem<T> item = pooledItems.Find( I => I.isUsed == false);
            if(item != null)
            { 
-              print("Inside the getiTEM");
               item.isUsed = true;
               return  item.Item; 
            }
@@ -23,7 +22,7 @@ public class ServicePool<T> : GenericSingleton<ServicePool<T>> where T : class
        return createNewPooledItem();
    }  
 
-   private T createNewPooledItem()
+   protected T createNewPooledItem()
    {
         PoolItem<T> pooledItem = new PoolItem<T>();
         pooledItem.Item = CreateItem();
@@ -44,10 +43,10 @@ public class ServicePool<T> : GenericSingleton<ServicePool<T>> where T : class
        {
        Debug.Log("Item Returned");
        }
-       pooledItem.isUsed = false;
+        pooledItem.isUsed = false;
    }
 
-   private class PoolItem<T>
+   protected class PoolItem<T>
   { 
     public T Item;
     public bool isUsed;
