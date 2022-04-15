@@ -23,7 +23,6 @@ public class BulletView : MonoBehaviour
    public void EnableBullet()
    {
      gameObject.SetActive(true); 
-     print(bulletController.bulletModelScript.bulletType);
    }
 
    void OnTriggerEnter(Collider target)
@@ -35,8 +34,7 @@ public class BulletView : MonoBehaviour
      }
      if( damagable == null && bulletController.bulletModelScript.bulletType == BulletType.PlayerBullet)
      {
-      //   EnemyTankService.Instance.resetEnemyHitCounter();
-          BulletService.Instance.InvokeOnPlayerMiss();
+         BulletService.Instance.InvokeOnPlayerMiss();
      }
      if(damagable == null)
      {

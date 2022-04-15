@@ -54,7 +54,6 @@ public class PlayerTankController : TankController
         bulletController1.setBulletFireTransform(playerTankViewScript.BulletFireTransform);
         bulletController1.setPosition();
         bulletController1.FireBullet();
-        Debug.Log("Fired"); 
         PlayerTankService.Instance.InvokeBulletFireEvent();
     }
 

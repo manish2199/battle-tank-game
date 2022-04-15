@@ -897,7 +897,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b99693a3a221bef43adf871fa7c22a58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletServicePool: {fileID: 0}
+  BulletServicePool: {fileID: 635130850}
 --- !u!4 &635130849
 Transform:
   m_ObjectHideFlags: 0
