@@ -16,7 +16,8 @@
      v) Singleton
  
 2. Achievement System 
-3. Implemented using Conecepts Of OOP  
+3. Used Scriptable Objects.
+4. Implemented using Conecepts Of OOP 
 
 ## 
 
