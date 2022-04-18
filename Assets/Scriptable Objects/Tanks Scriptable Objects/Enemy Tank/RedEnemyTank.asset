@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e59c1254fd4c8564693f300169609354, type: 3}
+  m_Name: RedEnemyTank
+  m_EditorClassIdentifier: 
+  playerTankType: 0
+  RotationSpeed: 0
+  tankType: 1
+  tankPrefab: {fileID: 7678427072206311037, guid: 0be4ca6c070888741b7fcbad3edb2fbb,
+    type: 3}
+  Health: 100
+  Speed: 3.5
+  bulletType: {fileID: 11400000, guid: b5f7b8d53cff91546ad61df3b2f15f9b, type: 2}
+  targetDetectingRange: 8
+  stoppingDistanceFromPlayer: 6
+  stoppingDistanceFromObstacle: 4
+  deathEffect: {fileID: 7829884719181797773, guid: 558854fff4037d94697534f41940a9ac,
+    type: 3}
