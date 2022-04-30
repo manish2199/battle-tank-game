@@ -1,5 +1,5 @@
 # Battle Tank Game
-   3D Game using Unity's Battle Tank base artwork
+   3D Single Player Battle Tank game in Unity.
 
 # Features
 
