@@ -3,21 +3,30 @@
 
 # Features
 
-1. Built using Design Patterns Like -
+
+2. Achievement System. 
+3. Virtual Joystick to Control Player Tank.
+4. HealthBars for player and enemies.
+5. Score system.
+6. Partile effects when enemy dies.
+ 
+ 
+# Programming Concepts Used 
+ 
+ 1. Built using Design Patterns Like -
   
-     i) Model View Controller (MVC)
+     i) Model View Controller (MVC) for player tank , enemy tank and bullets.
  
-    ii) Observer Design Pattern
+    ii) Observer Design Pattern to implement achievement system.
 
-    iii) State Machine 
+    iii) State Machines to manage the behaviour of enemy tanks. 
 
-    iv) Object Pooling
+    iv) Object Pooling to shoot bullets for enemy tank and player tank.
 
-     v) Singleton
+     v) Singleton patterns for managers / services (e.g. PlayerTankService , EnemyTankService , BulletService ).
  
-2. Achievement System 
-3. Used Scriptable Objects.
-4. Implemented using Conecepts Of OOP 
+  2. Used Scriptable Objects to configure tanks , bullets and achievements.
+   
 
 ## 
 
